@@ -7,7 +7,7 @@
     <title>Login / Sign Up</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/pages/signin.css">
+    <link rel="stylesheet" href="../../assets/css/pages/auth/auth.css">
     <script src="../../assets/js/auth.js"></script>
 </head>
 
@@ -16,33 +16,79 @@
         <img src="../../assets/images/branding/infi.png" alt="Skill Swap Pro Logo" class="logo-img">
         <span class="logo-text">SkillSwap Pro</span>
     </header>
-    <div class="container">
-        <div class="signin">
-            <h2>Sign In</h2>
-            <div class="input-icon-group">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="email" placeholder="Email" />
+    <main> 
+        <div class="container signin-form active">
+            <div class="signin">
+                <h2>Sign In</h2>
+                <div class="input-icon-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" />
+                </div>
+                <div class="input-icon-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" />
+                </div>
+                <a href="#" class="forgot">Forgot your password?</a>
+                <button class="btn signin-btn" onclick="handleSignIn()">Sign In</button>
             </div>
-            <div class="input-icon-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Password" />
+            <div class="signup">
+                <h2>Create Account!</h2>
+                <p>Sign up if you still don't have an account ...</p>
+                <button onclick="toggleForm()" class="btn signup-btn">Sign Up</button>
             </div>
-            <a href="#" class="forgot">Forgot your password?</a>
-            <button class="btn signin-btn" onclick="handleSignIn()">Sign In</button>
+            <div class="social-accounts">
+                <p class="or-text">Continue with social accounts</p>
+                <div class="social-icons">
+                    <a href="#" title="Sign in with Google"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" title="Sign in with LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="Sign in with GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </div>
 
-        <div class="signup">
-            <h2>Create Account!</h2>
-            <p>Sign up if you still don't have an account ...</p>
-            <a href="./signup.html"><button class="btn signup-btn">Sign Up</button></a>
+        <div class="container signup-form">
+            <div class="signin">
+                <h2>Already have an account?</h2> <br>
+                <button onclick="toggleForm()" class="btn signin-btn">Sign In</button>
+            </div>
+            <div class="signup">
+                <h2>Sign Up</h2>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-user-tag"></i>
+                        <input type="text" id="name" placeholder="Full Name" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Email Address" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+                    </div>
+                </div>
+                <button class="btn signup-btn" onclick="handleSignUp()">Sign Up</button>
+            </div>
+            <div class="social-accounts">
+                <p class="or-text">Continue with social accounts</p>
+                <div class="social-icons">
+                    <a href="#" title="Sign up with Google"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" title="Sign up with LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" title="Sign up with GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </div>
-        <p class="or-text">Or sign in using social accounts</p>
-        <div class="social-icons">
-            <a href="#" title="Sign in with Google"><i class="fa-brands fa-google"></i></a>
-            <a href="#" title="Sign in with LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="#" title="Sign in with GitHub"><i class="fab fa-github"></i></a>
-        </div>
-    </div>
+    </main>
 </body>
 
 </html>
