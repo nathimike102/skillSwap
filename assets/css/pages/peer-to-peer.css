@@ -1,0 +1,161 @@
+body {
+	margin: 0;
+	font-family: 'Segoe UI', sans-serif;
+	background-color: #0D1117;
+	color: #C9D1D9;
+}
+
+button {
+	padding: 10px;
+	background-color: transparent;
+}
+
+button a {
+	font-size: 15px;
+	color: #C9D1D9;
+	text-decoration: none;
+}
+
+.header1 {
+	background-color: #161B22;
+	padding: 40px 20px;
+	text-align: center;
+}
+
+.header1 h1 {
+	margin: 0;
+	font-size: 2.4rem;
+	color: #58A6FF;
+}
+
+.intro {
+	padding: 40px 20px;
+	max-width: 800px;
+	margin: auto;
+	text-align: center;
+}
+
+.intro h2 {
+	font-size: 1.8rem;
+	color: #58A6FF;
+	margin-bottom: 15px;
+}
+
+.intro p {
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #C9D1D9;
+}
+
+.how-it-works {
+	padding: 60px 20px;
+	text-align: center;
+}
+
+.how-it-works h2 {
+	color: #58A6FF;
+	margin-bottom: 30px;
+	font-size: 2rem;
+}
+
+.card-container {
+	display: grid;
+	gap: 30px;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	max-width: 1200px;
+	margin: auto;
+}
+
+.card {
+	background: #161B22;
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: 0 8px 20px rgba(88, 166, 255, 0.1);
+	border: 1px solid #58A6FF;
+}
+
+.card:hover {
+	background-color: rgba(88, 166, 255, 0.1);
+}
+
+.card h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+	color: #58A6FF;
+}
+
+.card p {
+	font-size: 0.95rem;
+	color: #C9D1D9;
+}
+
+.benefits {
+	padding: 40px 20px;
+	max-width: 800px;
+	margin: auto;
+}
+
+.benefits h2 {
+	color: #58A6FF;
+	font-size: 2rem;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.benefits ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.benefits li {
+	font-size: 1rem;
+	margin: 10px 0;
+	padding-left: 25px;
+	position: relative;
+	line-height: 1.6;
+}
+
+.benefits li::before {
+	content: "✔";
+	position: absolute;
+	left: 0;
+	color: #58A6FF;
+}
+
+.cta {
+	background: radial-gradient(circle at center, #161B22, #0D1117);
+	padding: 50px 20px;
+	text-align: center;
+}
+
+.cta h2 {
+	font-size: 2rem;
+	color: #58A6FF;
+	margin-bottom: 20px;
+}
+
+.btn {
+	background-color: #238636;
+	color: #FFFFFF;
+	padding: 12px 28px;
+	border-radius: 8px;
+	font-weight: bold;
+	text-decoration: none;
+	display: inline-block;
+	box-shadow: 0 0 10px rgba(35, 134, 54, 0.4);
+	transition: background-color 0.3s ease,
+	box-shadow 0.3s ease;
+}
+
+.btn:hover {
+	background-color: #2ea043;
+	box-shadow: 0 0 18px rgba(35, 134, 54, 0.8);
+}
+
+.footer {
+	text-align: center;
+	padding: 20px;
+	background-color: #161B22;
+	color: #888;
+	font-size: 0.9rem;
+}

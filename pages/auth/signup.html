@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Sign Up</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/pages/signup.css">
+    <script src="../../assets/js/auth.js"></script>
+</head>
+
+<body>
+    <header class="header-logo"></header>
+        <img src="../../assets/images/branding/infi.png" alt="Skill Swap Pro Logo" class="logo-img">
+        <span class="logo-text">SkillSwap Pro</span>
+    </header>
+    <div class="container">
+        <div class="signin">
+            <h2>Already have an account?</h2>
+            <a href="./signin.html">
+                <button class="btn signin-btn">Sign In</button>
+            </a>
+        </div>
+
+        <div class="signup">
+            <h1>Sign Up</h1>
+            <form>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="first-name" placeholder="First Name" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-user-tag"></i>
+                        <input type="text" id="last-name" placeholder="Last Name" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Email Address" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-icon-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+                    </div>
+                </div>
+                <button type="submit" class="box2" onclick="handleSignUp()">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
