@@ -1,4 +1,4 @@
-var userToken = 'user'; 
+var userToken = null; 
 
 function showUserState() {
     const guestNav = document.getElementById('guest-nav');
@@ -10,7 +10,6 @@ function showUserState() {
     if (guestCta) guestCta.style.display = 'none';
     if (userNav) userNav.style.display = 'block';
     if (userCta) userCta.style.display = 'block';
-    userToken = 'user';
 }
 
 function showGuestState() {
@@ -23,33 +22,86 @@ function showGuestState() {
     if (guestCta) guestCta.style.display = 'block';
     if (userNav) userNav.style.display = 'none';
     if (userCta) userCta.style.display = 'none';
-    userToken = 'guest';
+}
+
+function saveUserSession(email) {
+    const sessionData = {
+        email: email,
+        timestamp: Date.now()
+    };
+    localStorage.setItem('userSession', JSON.stringify(sessionData));
+    userToken = email;
+}
+
+function clearUserSession() {
+    localStorage.removeItem('userSession');
+    userToken = null;
+}
+
+function authenticateUser(email, password) {
+    try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Authentication error:', error);
+        return false;
+    }
 }
 
 function logout() {
+    clearUserSession();
     showGuestState();
     alert('You have been logged out successfully!');
+    
+    const currentPath = window.location.pathname;
+    if (!currentPath.includes('index.html') && !currentPath.includes('auth.html')) {
+        window.location.href = '/index.html';
+    }
 }
 
 function login(userData) {
-    if (userData['email'] === 'user@example.com' && userData['password'] === 'password123') {
+    if (authenticateUser(userData.email, userData.password)) {
+        saveUserSession(userData.email);
         showUserState();
         alert('You have been logged in successfully!');
-        window.location.href = '../../index.html';
-        return true;
-    }else{
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('auth.html')) {
+            window.location.href = '../../index.html';
+        } 
+    } else {
         alert('Login failed. Please try again.');
+    }
+}
+
+function signup(userData) {
+    try {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        if (users.find(user => user.email === userData.email)) {
+            alert('User with this email already exists!');
+            return false;
+        }
+        users.push(userData);
+        localStorage.setItem('users', JSON.stringify(users));
+        return true;
+    } catch (error) {
+        console.error('Signup error:', error);
+        alert('An error occurred during signup. Please try again.');
         return false;
     }
 }
 
 function validateEmail(email) {
-    return true; // Placeholder for actual validation logic
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 function validatePassword(password) {
-    // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
-    return true; // Placeholder for actual validation logic
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordRegex.test(password);
 }
 
 function handleSignIn() {
@@ -76,7 +128,7 @@ function handleSignUp() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
-
+    
     if (!name || !email || !password || !confirmPassword) {
         alert('Please fill in all fields.');
         return;
@@ -93,28 +145,40 @@ function handleSignUp() {
         alert('Passwords do not match.');
         return;
     }
-    const userData = { 
-        firstName: firstName, 
-        lastName: lastName, 
+    const userData = {
+        name: name,
         email: email,
         password: password
     };
-    login(userData);
+    if (signup(userData)) {
+        alert('Account created successfully!');
+        login(userData);
+    }
 }
 
 function toggleForm() {
-    const signinForm = document.querySelector('.signin-form');
-    const signupForm = document.querySelector('.signup-form');
-    
-    signinForm.classList.toggle('active');
-    signupForm.classList.toggle('active');
+    const signin = document.querySelector('.signin-form');
+    const signup = document.querySelector('.signup-form');
+
+    signin.classList.toggle('active');
+    signup.classList.toggle('active');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    if (userToken === 'user') {
+    const session = localStorage.getItem('userSession');
+    if (session) {
+        try {
+            const sessionData = JSON.parse(session);
+            userToken = sessionData.email;
+        } catch (error) {
+            console.error('Invalid session data:', error);
+            localStorage.removeItem('userSession');
+            userToken = null;
+        }
+    }
+    if (userToken) {
         showUserState();
     } else {
         showGuestState();
     }
 });
-
