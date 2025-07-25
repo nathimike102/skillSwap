@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover - SkillSwap Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="32" height="32" class="me-2">
+                <span class="text-cyan fw-bold">SkillSwap Pro</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="discover.html">Discover</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roadmaps.html">My Roadmaps</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div id="authButtons">
+                        <a href="auth.html" class="btn btn-primary">Sign In</a>
+                    </div>
+                    <div id="userMenu" class="dropdown d-none">
+                        <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span id="userName">Guest User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end bg-secondary">
+                            <li><a class="text-cyan dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="text-cyan dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="text-cyan dropdown-item" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main style="padding-top: 100px;">
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <span class="text-cyan">Discover Skills & Courses</span>
+                    </h1>
+                    <p class="lead mb-4">
+                        Explore a curated selection of courses and skills to boost your career. Learn from mentors, earn badges, and apply your skills.
+                    </p>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Search courses, skills..." id="searchInput">
+                                </div>
+                                <div class="col-md-4 col-8">
+                                    <select class="form-select" id="categoryFilter">
+                                        <option value="">All Categories</option>
+                                        <option value="programming">Programming</option>
+                                        <option value="design">Design</option>
+                                        <option value="business">Business</option>
+                                        <option value="marketing">Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 col-4">
+                                    <button class="btn btn-outline-primary btn-sm w-100" onclick="filterCourses()">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5">
+            <div class="container">
+                <div class="row g-4" id="coursesContainer">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">React Development Fundamentals</h5>
+                                    <p class="text-muted small mb-2">Learn the basics of React.js and build dynamic web applications</p>
+                                </div>
+                                <span class="badge bg-success">Beginner</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>8 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>1,234 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in" style="animation-delay: 0.1s">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">Advanced JavaScript Concepts</h5>
+                                    <p class="text-muted small mb-2">Master closures, promises, async/await, and modern JS features</p>
+                                </div>
+                                <span class="badge bg-warning">Intermediate</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>6 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>856 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in" style="animation-delay: 0.2s">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">UI/UX Design Principles</h5>
+                                    <p class="text-muted small mb-2">Create beautiful and user-friendly interface designs</p>
+                                </div>
+                                <span class="badge bg-success">Beginner</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>10 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>2,156 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in" style="animation-delay: 0.3s">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">Python for Data Science</h5>
+                                    <p class="text-muted small mb-2">Learn Python programming for data analysis and machine learning</p>
+                                </div>
+                                <span class="badge bg-warning">Intermediate</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>12 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>3,421 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in" style="animation-delay: 0.4s">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">DevOps and Cloud Computing</h5>
+                                    <p class="text-muted small mb-2">Master Docker, Kubernetes, and cloud deployment strategies</p>
+                                </div>
+                                <span class="badge bg-danger">Advanced</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>16 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>567 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card course-card h-100 animate-fade-in" style="animation-delay: 0.5s">
+                            <div class="card-header d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="card-title text-primary mb-0">Digital Marketing Strategy</h5>
+                                    <p class="text-muted small mb-2">Build effective digital marketing campaigns and strategies</p>
+                                </div>
+                                <span class="badge bg-success">Beginner</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-center gap-3 mb-3 text-muted small">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-clock"></i>
+                                        <span>8 weeks</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i class="bi bi-people"></i>
+                                        <span>1,789 students</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-primary btn-sm flex-fill">Explore</button>
+                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                        <i class="bi bi-heart"></i>
+                                        Wishlist +
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card animate-fade-in" style="animation-delay: 0.6s">
+                        <div class="card-body text-center p-4">
+                            <h2 class="text-light mb-4">Can't find what you're looking for?</h2>
+                            <p class="text-muted">
+                                Join our community for support and connect with mentors who can help you learn any skill you need.
+                            </p>
+                            <button class="btn btn-primary btn-sm flex-fill">Join community</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="24" height="24" class="me-2">
+                        <span class="text-cyan fw-bold fs-5">SkillSwap Pro</span>
+                    </div>
+                    <p class="text-muted small">
+                        Empowering careers through skill exchange, mentorship, and AI-powered learning tools.
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none small">Home</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none small">About Us</a></li>
+                        <li><a href="discover.html" class="text-muted text-decoration-none small">Discover</a></li>
+                        <li><a href="roadmaps.html" class="text-muted text-decoration-none small">My Roadmaps</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Features</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-muted small">Skill Exchange</li>
+                        <li class="text-muted small">Career Guidance</li>
+                        <li class="text-muted small">AI-Powered Tools</li>
+                        <li class="text-muted small">Expert Mentorship</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-muted small">Aditya College</li>
+                        <li class="text-muted small">Andhra Pradesh, India</li>
+                        <li class="text-muted small">CSE Department</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="text-muted small mb-0">&copy; 2025 SkillSwap Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
