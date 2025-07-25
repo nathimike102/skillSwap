@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Roadmaps - SkillSwap Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="32" height="32" class="me-2">
+                <span class="text-cyan fw-bold">SkillSwap Pro</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="discover.html">Discover</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="roadmaps.html">My Roadmaps</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div id="authButtons">
+                        <a href="auth.html" class="btn btn-primary">Sign In</a>
+                    </div>
+                    <div id="userMenu" class="dropdown d-none">
+                        <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span id="userName">Guest User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end bg-secondary">
+                            <li><a class="text-cyan dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="text-cyan dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="text-cyan dropdown-item" href="#" onclick="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main style="padding-top: 100px;">
+        <section class="py-5">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <span class="text-cyan fw-bold">My Roadmaps</span>
+                    </h1>
+                    <p class="lead mb-4">
+                        Track your learning progress with personalized roadmaps designed for your career goals.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 mb-5">
+            <h2 class="text-cyan fw-bold m-4 px-3 animate-fade-in">CS Fundamentals</h2>
+            <div class="row g-4 m-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in">
+                        <h4 class="text-cyan fw-bold mb-2">C</h4>
+                        <p class="text-secondary">Programming Language</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.1s">
+                        <h4 class="text-cyan fw-bold mb-2">C++</h4>
+                        <p class="text-secondary">Programming Language</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.2s">
+                        <h4 class="text-cyan fw-bold mb-2">Java</h4>
+                        <p class="text-secondary">Programming Language</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.3s">
+                        <h4 class="text-cyan fw-bold mb-2">Python</h4>
+                        <p class="text-secondary">Programming Language</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.4s">
+                        <h4 class="text-cyan fw-bold mb-2">DSA</h4>
+                        <p class="text-secondary">Data Structures & Algorithms</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.5s">
+                        <h4 class="text-cyan fw-bold mb-2">DBMS & SQL</h4>
+                        <p class="text-secondary">Database Management</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card roadmap-card text-center h-100 animate-fade-in" style="animation-delay: 0.6s">
+                        <h4 class="text-cyan fw-bold mb-2">OS</h4>
+                        <p class="text-secondary">Operating Systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-5 mb-5">
+                <h2 class="text-cyan fw-bold m-4 px-3 animate-fade-in">Roles</h2>
+                <div class="row g-4 m-4">
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Frontend Developer</h5>
+                                <span class="badge bg-success">Entry Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">HTML</span>
+                                <span class="badge bg-secondary small">CSS</span>
+                                <span class="badge bg-secondary small">JavaScript</span>
+                                <span class="badge bg-secondary small">React</span>
+                                <span class="badge bg-secondary small">Vue.js</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.1s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Backend Developer</h5>
+                                <span class="badge bg-warning">Mid Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">Node.js</span>
+                                <span class="badge bg-secondary small">Python</span>
+                                <span class="badge bg-secondary small">Java</span>
+                                <span class="badge bg-secondary small">Databases</span>
+                                <span class="badge bg-secondary small">APIs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.2s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">UI/UX Designer</h5>
+                                <span class="badge bg-success">Entry Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">Figma</span>
+                                <span class="badge bg-secondary small">Adobe XD</span>
+                                <span class="badge bg-secondary small">User Research</span>
+                                <span class="badge bg-secondary small">Prototyping</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.3s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">AI/ML Engineer</h5>
+                                <span class="badge bg-danger">Advanced</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">Python</span>
+                                <span class="badge bg-secondary small">TensorFlow</span>
+                                <span class="badge bg-secondary small">PyTorch</span>
+                                <span class="badge bg-secondary small">Statistics</span>
+                                <span class="badge bg-secondary small">Deep Learning</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.4s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Full Stack Developer</h5>
+                                <span class="badge bg-info">Senior Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">Frontend</span>
+                                <span class="badge bg-secondary small">Backend</span>
+                                <span class="badge bg-secondary small">Databases</span>
+                                <span class="badge bg-secondary small">DevOps</span>
+                                <span class="badge bg-secondary small">System Design</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.5s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Data Analyst</h5>
+                                <span class="badge bg-success">Entry Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">SQL</span>
+                                <span class="badge bg-secondary small">Python</span>
+                                <span class="badge bg-secondary small">Excel</span>
+                                <span class="badge bg-secondary small">Tableau</span>
+                                <span class="badge bg-secondary small">Statistics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.6s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Mobile App Developer</h5>
+                                <span class="badge bg-warning">Mid Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">React Native</span>
+                                <span class="badge bg-secondary small">Flutter</span>
+                                <span class="badge bg-secondary small">Swift</span>
+                                <span class="badge bg-secondary small">Kotlin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card roadmap-card h-100 animate-fade-in" style="animation-delay: 0.7s">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="text-cyan fw-bold mb-0">Game Developer</h5>
+                                <span class="badge bg-warning">Mid Level</span>
+                            </div>
+                            <p class="text-secondary mb-2">Required Skills:</p>
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-secondary small">Unity</span>
+                                <span class="badge bg-secondary small">C#</span>
+                                <span class="badge bg-secondary small">Game Design</span>
+                                <span class="badge bg-secondary small">3D Modeling</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center py-5 px-3">
+                <h3 class="mb-4">Ready to Start Your Journey?</h3>
+                <p class="text-secondary mb-4">Choose a roadmap that aligns with your career goals and start building the skills that matter.</p>
+                <div class="row justify-content-center g-4">
+                    <div class="col-lg-3 col-10">
+                        <div class="card roadmap-card text-center h-75 animate-fade-in">
+                            <h5 class="text-cyan mb-3">Personalized Learning</h5>
+                            <p class="text-secondary mb-3">Get AI-powered recommendations based on your goals</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-10">
+                        <div class="card roadmap-card text-center h-75 animate-fade-in" style="animation-delay: 0.1s">
+                            <h5 class="text-cyan mb-3">Expert Mentorship</h5>
+                            <p class="text-secondary mb-3">Connect with industry professionals for guidance</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-10">
+                        <div class="card roadmap-card text-center h-75 animate-fade-in" style="animation-delay: 0.2s">
+                            <h5 class="text-cyan mb-3">Track Progress</h5>
+                            <p class="text-secondary mb-3">Monitor your skills development in real-time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="24" height="24" class="me-2">
+                        <span class="text-cyan fw-bold fs-5">SkillSwap Pro</span>
+                    </div>
+                    <p class="text-muted small">
+                        Empowering careers through skill exchange, mentorship, and AI-powered learning tools.
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none small">Home</a></li>
+                        <li><a href="about.html" class="text-muted text-decoration-none small">About Us</a></li>
+                        <li><a href="discover.html" class="text-muted text-decoration-none small">Discover</a></li>
+                        <li><a href="roadmaps.html" class="text-muted text-decoration-none small">My Roadmaps</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Features</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-muted small">Skill Exchange</li>
+                        <li class="text-muted small">Career Guidance</li>
+                        <li class="text-muted small">AI-Powered Tools</li>
+                        <li class="text-muted small">Expert Mentorship</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary mb-3">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-muted small">Aditya College</li>
+                        <li class="text-muted small">Andhra Pradesh, India</li>
+                        <li class="text-muted small">CSE Department</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="text-muted small mb-0">&copy; 2025 SkillSwap Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

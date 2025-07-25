@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - SkillSwap Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="32" height="32" class="me-2">
+                <span class="text-cyan fw-bold">SkillSwap Pro</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="discover.html">Discover</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="roadmaps.html">My Roadmaps</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="animate-fade min-vh-100 d-flex align-items-center" style="padding-top: 80px;">
+        <div class="container animate-fade">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row bg-secondary rounded-4 overflow-hidden shadow-lg">
+                        <div class="card col-lg-6 p-5">
+                            <div class="text-center mb-4">
+                                <div class="text-center mb-4">
+                                    <img src="assets/skillswap-logo.png" alt="SkillSwap Pro" width="80" height="80" class="mb-3">
+                                    <h2 class="text-cyan">Welcome Back</h2>
+                                    <p class="text-muted">Sign in to continue your learning journey</p>
+                                </div>
+                                <div class="border-bottom mb-4 ">
+                                    <ul class="d-flex nav gap-5 justify-content-between py-2 px-5">
+                                        <li class="nav-item">
+                                            <button class="btn btn-secondary btn-sm active" id="signin-tab" data-bs-toggle="pill" data-bs-target="#signin" type="button" role="tab">
+                                                Sign In
+                                            </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-secondary btn-sm" id="signup-tab" data-bs-toggle="pill" data-bs-target="#signup" type="button" role="tab">
+                                                Sign Up
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" id="authTabContent">
+                                    <div class="tab-pane animate-fade show active" id="signin" role="tabpanel">
+                                        <form id="signinForm">
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-envelope"></i></span>
+                                                    <input type="email" class="form-control" id="signinEmail" placeholder="Enter your Email" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-lock"></i></span>
+                                                    <input type="password" class="form-control" id="signinPassword" placeholder="Enter your Password" required>
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('signinPassword')">
+                                                        <i class="bi bi-eye" id="signinPasswordIcon"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                                                    <label class="text-muted" for="rememberMe">Remember me</label>
+                                                </div>
+                                                <a href="#" class="text-primary text-decoration-none small">Forgot password?</a>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100 mb-4" onclick="handleSignin()">Sign In</button>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane animate-fade" id="signup" role="tabpanel">
+                                        <form id="signupForm">
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-user"></i></span>
+                                                    <input type="text" class="form-control" id="signupName" placeholder="Enter your Full Name" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-envelope"></i></span>
+                                                    <input type="email" class="form-control" id="signinEmail" placeholder="Enter your Email" required>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-lock"></i></span>
+                                                    <input type="password" class="form-control" id="signupPassword" placeholder="Enter your Password" required>
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('signupPassword')">
+                                                        <i class="bi bi-eye" id="signupPasswordIcon"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-secondary border-dark text-muted"><i class="fas fa-lock"></i></span>
+                                                    <input type="password" class="form-control" id="ConfirmPassword" placeholder="Verify your Password" required>
+                                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('ConfirmPassword')">
+                                                        <i class="bi bi-eye" id="ConfirmPasswordIcon"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 form-check">
+                                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                                <label class="text-muted" for="agreeTerms">
+                                                    I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary w-100 mb-4" onclick="handleSignup()">Create Account</button>
+                                        </form>
+                                    </div>
+                                    <div class="text-center mb-4">
+                                        <p class="text-muted small mb-3">Or continue with</p>
+                                        <div class="container gap-2">
+                                            <button class="btn btn-outline-primary my-2 me-2" onclick="socialLogin('Google')">
+                                                <i class="bi bi-google me-2"></i>
+                                            </button>
+                                            <button class="btn btn-outline-primary my-2 me-2" onclick="socialLogin('Github')">
+                                                <i class="bi bi-github me-2"></i>
+                                            </button>
+                                            <button class="btn btn-outline-primary my-2 me-2" onclick="socialLogin('Linkedin')">
+                                                <i class="bi bi-linkedin me-2"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-muted small mb-2">For demo purposes:</p>
+                                        <button class="btn btn-secondary btn-sm" onclick="demoLogin()">
+                                            Use Demo Account
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-5 text-center">
+                            <div class="h-100 d-flex flex-column justify-content-center">
+                                <div class="mb-4">
+                                    <div class="display-1">👋</div>
+                                </div>
+                                <h3 class="mb-3">Welcome to SkillSwap Pro!</h3>
+                                <p class="text-secondary mb-4">
+                                    Join our community of learners and mentors. Start building the skills that matter for your career.
+                                </p>
+                                <div class="row g-3 text-start">
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-circle text-cyan me-2 small"></i>
+                                            <span class="small">Skill Exchange</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-circle text-cyan me-2 small"></i>
+                                            <span class="small">Career Guidance</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-circle me-2 small" style="color: #10b981;"></i>
+                                            <span class="small">AI-Powered Tools</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-circle text-cyan me-2 small"></i>
+                                            <span class="small">Expert Mentorship</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
