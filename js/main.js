@@ -192,5 +192,7 @@ function socialLogin(provider) {
 }
 function openProfile(){
     showToast('Profile coming soon!', 'info');
-    
+}
+function joinCommunity(){
+    showToast('Function coming soon!', 'info');
 }
