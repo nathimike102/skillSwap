@@ -62,29 +62,24 @@ SkillSwap/
 │   ├── styles/            # CSS stylesheets
 │   │   └── style.css
 │   ├── scripts/           # JavaScript files
-│   │   ├── main.js
-│   │   └── utils.js
-│   └── components/        # Reusable components (future use)
+│       ├── main.js
+│       └── utils.js
+│   
 ├── public/                # Static assets
 │   └── assets/
 │       ├── images/        # Images and logos
-│       │   ├── skillswap-logo.png
-│       │   ├── infi-logo.png
-│       │   └── profiles/  # Profile images
-│       └── icons/         # Icon files
+│           ├── skillswap-logo.png
+│           ├── infi-logo.png
+│           └── profiles/  # Profile images
+│       
 ├── docs/                  # Documentation
 │   ├── README.md
-│   ├── DOCUMENTATION.md
-│   ├── PATH-REFERENCE.md
-│   ├── PATH-VERIFICATION-REPORT.md
 │   └── LICENSE
 ├── config/               # Configuration files
 │   └── app.config.js
 ├── scripts/              # Build and utility scripts
-│   ├── setup.sh
-│   └── fix-paths.sh
-├── package.json          # Node.js project configuration
-└── README.md            # Main project documentation
+    ├── setup.sh
+    └── fix-paths.sh
 ```
 
 ## Usage
