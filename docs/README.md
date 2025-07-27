@@ -165,28 +165,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Team Members
 
 - SRI GANESH MENNI - Full Stack Developer
-- Eathakottu Sanjay - Frontend Developer  
-- YASWANTH AMJURI - Backend Developer
-- SINGIRI SIVAJI - UI/UX Designer
-- SANA CHANDRA VAMSI - Project Manager
-- SIBANDA NKOSINATHI MICHAEL - Systems Architect
+- Eathakottu Sanjay - Full Stack Developer  
+- YASWANTH AMJURI - Full Stack Developer
+- SINGIRI SIVAJI - Full Stack Developer
+- SANA CHANDRA VAMSI - Full Stack Developer
+- SIBANDA NKOSINATHI MICHAEL - Full Stack Developer
 
 ## Changelog
-
-### [Version 1.0.0] - July 27, 2025
-- ✅ Initial project setup with professional folder structure
-- ✅ Complete responsive landing page
-- ✅ User authentication system (frontend)
-- ✅ About page with team information
-- ✅ Course discovery interface
-- ✅ Portfolio creation system
-- ✅ Skill exchange matching
-- ✅ Mentorship session management
-- ✅ Career guidelines hub
-- ✅ Job platform integration interface
-- ✅ All HTML files with corrected paths
-- ✅ Bootstrap 5 and modern CSS styling
-- ✅ Professional documentation
 
 ### [Upcoming Features]
 - Backend API development
