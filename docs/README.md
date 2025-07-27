@@ -62,29 +62,24 @@ SkillSwap/
 │   ├── styles/            # CSS stylesheets
 │   │   └── style.css
 │   ├── scripts/           # JavaScript files
-│   │   ├── main.js
-│   │   └── utils.js
-│   └── components/        # Reusable components (future use)
+│       ├── main.js
+│       └── utils.js
+│   
 ├── public/                # Static assets
 │   └── assets/
 │       ├── images/        # Images and logos
-│       │   ├── skillswap-logo.png
-│       │   ├── infi-logo.png
-│       │   └── profiles/  # Profile images
-│       └── icons/         # Icon files
+│           ├── skillswap-logo.png
+│           ├── infi-logo.png
+│           └── profiles/  # Profile images
+│       
 ├── docs/                  # Documentation
 │   ├── README.md
-│   ├── DOCUMENTATION.md
-│   ├── PATH-REFERENCE.md
-│   ├── PATH-VERIFICATION-REPORT.md
 │   └── LICENSE
 ├── config/               # Configuration files
 │   └── app.config.js
-├── scripts/              # Build and utility scripts
-│   ├── setup.sh
-│   └── fix-paths.sh
-├── package.json          # Node.js project configuration
-└── README.md            # Main project documentation
+└── scripts/              # Build and utility scripts
+    ├── setup.sh
+    └── fix-paths.sh
 ```
 
 ## Usage
@@ -165,28 +160,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Team Members
 
 - SRI GANESH MENNI - Full Stack Developer
-- Eathakottu Sanjay - Frontend Developer  
-- YASWANTH AMJURI - Backend Developer
-- SINGIRI SIVAJI - UI/UX Designer
-- SANA CHANDRA VAMSI - Project Manager
-- SIBANDA NKOSINATHI MICHAEL - Systems Architect
+- Eathakottu Sanjay - Full Stack Developer  
+- YASWANTH AMJURI - Full Stack Developer
+- SINGIRI SIVAJI - Full Stack Developer
+- SANA CHANDRA VAMSI - Full Stack Developer
+- SIBANDA NKOSINATHI MICHAEL - Full Stack Developer
 
 ## Changelog
-
-### [Version 1.0.0] - July 27, 2025
-- ✅ Initial project setup with professional folder structure
-- ✅ Complete responsive landing page
-- ✅ User authentication system (frontend)
-- ✅ About page with team information
-- ✅ Course discovery interface
-- ✅ Portfolio creation system
-- ✅ Skill exchange matching
-- ✅ Mentorship session management
-- ✅ Career guidelines hub
-- ✅ Job platform integration interface
-- ✅ All HTML files with corrected paths
-- ✅ Bootstrap 5 and modern CSS styling
-- ✅ Professional documentation
 
 ### [Upcoming Features]
 - Backend API development
