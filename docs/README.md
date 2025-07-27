@@ -61,25 +61,20 @@ SkillSwap/
 │   │   └── 404.html
 │   ├── styles/            # CSS stylesheets
 │   │   └── style.css
-│   ├── scripts/           # JavaScript files
-│       ├── main.js
-│       └── utils.js
+│   └─── scripts/           # JavaScript files
+│       └── main.js
 │   
 ├── public/                # Static assets
 │   └── assets/
-│       ├── images/        # Images and logos
+│       └─── images/        # Images and logos
 │           ├── skillswap-logo.png
 │           ├── infi-logo.png
 │           └── profiles/  # Profile images
 │       
-├── docs/                  # Documentation
-│   ├── README.md
-│   └── LICENSE
-├── config/               # Configuration files
-│   └── app.config.js
-└── scripts/              # Build and utility scripts
-    ├── setup.sh
-    └── fix-paths.sh
+└─── docs/                  # Documentation
+    ├── README.md
+    └── LICENSE
+
 ```
 
 ## Usage
@@ -139,13 +134,11 @@ npm run test
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run lint` - Run code linting
-- `./scripts/setup.sh` - Setup development environment
 
 ### Code Style
 - Use semantic HTML5 elements
 - Follow BEM methodology for CSS classes
 - Use ES6+ JavaScript features
-- Maintain consistent indentation (2 spaces)
 
 ## License
 
