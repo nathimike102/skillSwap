@@ -77,7 +77,7 @@ SkillSwap/
 │   └── LICENSE
 ├── config/               # Configuration files
 │   └── app.config.js
-├── scripts/              # Build and utility scripts
+└── scripts/              # Build and utility scripts
     ├── setup.sh
     └── fix-paths.sh
 ```
