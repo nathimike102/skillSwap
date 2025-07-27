@@ -42,12 +42,12 @@ section {
     transition: all 0.3s ease;
     color: hsl(210, 40%, 98%);
 }
+
 .form-control::placeholder {
     font-style: italic;
     color: #fff !important;
     opacity: 0.2;
 }
-
 
 .form-control:focus, .form-control:hover{
     background: rgba(30, 41, 59, 0.5);
@@ -68,6 +68,11 @@ section {
 .form-check-input:hover {
     border-color: hsl(210, 95%, 70%);
     box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.category-option{
+    color: hsl(188, 86%, 53%);
+    background: rgba(3, 21, 39, 0.8) !important;
 }
 
 /* Texts */
