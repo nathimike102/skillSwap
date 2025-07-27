@@ -1,0 +1,36 @@
+{
+  "name": "skillswap-pro",
+  "version": "1.0.0",
+  "description": "A modern platform for skill exchange, mentorship, and career development",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src/",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "cleancss -o dist/styles/style.min.css src/styles/style.css",
+    "minify-js": "uglifyjs src/scripts/main.js -o dist/scripts/main.min.js",
+    "dev": "live-server src/ --port=3000",
+    "lint": "eslint src/scripts/*.js"
+  },
+  "keywords": [
+    "education",
+    "skills",
+    "mentorship",
+    "career",
+    "learning",
+    "platform"
+  ],
+  "author": "SkillSwap Pro Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "clean-css-cli": "^5.6.2",
+    "uglify-js": "^3.17.4",
+    "eslint": "^8.56.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathimike102/skillSwap.git"
+  },
+  "homepage": "https://skillswap-pro.netlify.app"
+}

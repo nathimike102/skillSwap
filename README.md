@@ -1,67 +1,51 @@
-# I-SHIP Project
+# SkillSwap Pro
 
-## Overview
-    
-## Features
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- Git
-
-### Installation
-
+A modern platform for skill exchange, mentorship, and career development.
 
 ## Project Structure
 
 ```
-ProjectSpace/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   └── utils/
-├── public/
-├── tests/
-├── docs/
-└── README.md
+SkillSwap/
+├── src/                    # Source code
+│   ├── index.html         # Main landing page
+│   ├── pages/             # HTML pages
+│   ├── styles/            # CSS stylesheets
+│   ├── scripts/           # JavaScript files
+│   └── components/        # Reusable components
+├── public/                # Static assets
+│   └── assets/
+│       ├── images/        # Images and logos
+│       └── icons/         # Icon files
+├── docs/                  # Documentation
+│   ├── README.md         # Project documentation
+│   └── LICENSE           # License file
+├── config/               # Configuration files
+└── scripts/              # Build and utility scripts
 ```
 
-## Usage
+## Features
 
+- User Portfolio System
+- Job Platform Integration
+- Career Guidelines Hub
+- Smart Match + Tracker
+- Peer-to-Peer Classes
+- One-to-Many Mentorship
 
-## API Documentation
+## Getting Started
 
+1. Clone the repository
+2. Open `src/index.html` in your browser
+3. Explore the platform features
 
-## Testing
+## Development
 
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+The project uses:
+- HTML5
+- CSS3 with Bootstrap 5
+- Vanilla JavaScript
+- Bootstrap Icons
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-- Project Owner: ...
-- Project Repository: [https://github.com/nathimike102/i-ship](https://github.com/nathimike102/i-ship)
-
-## Changelog
-
-### [Unreleased]
-- Initial project setup
-- Basic project structure
-
----
-
-**Last Updated:** July 21, 2025
+See LICENSE file for details.

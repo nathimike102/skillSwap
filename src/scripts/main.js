@@ -163,7 +163,7 @@ function demoLogin() {
     localStorage.setItem('skillswap_user', JSON.stringify(userData));
     showToast('Demo login successful! Redirecting...');
     setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }, 1000);
 }
 
