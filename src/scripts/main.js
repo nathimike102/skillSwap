@@ -20,23 +20,6 @@ function startLoading() {
     }, 100);
 }
 
-function checkAuthStatus() {
-    const userData = localStorage.getItem('skillswap_user');
-    const authButtons = document.getElementById('authButtons');
-    const userMenu = document.getElementById('userMenu');
-    const userName = document.getElementById('userName');
-
-    if (userData) {
-        const user = JSON.parse(userData);
-        authButtons.classList.add('d-none');
-        userMenu.classList.remove('d-none');
-        if (userName) userName.textContent = user.name || 'Demo User';
-    } else {
-        authButtons.classList.remove('d-none');
-        userMenu.classList.add('d-none');
-    }
-}
-
 function initializeAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -69,6 +52,11 @@ function initializeFadeInAnimations(selector) {
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loadingScreen');
     const isFirstLoad = !sessionStorage.getItem('skillswap_session_started');
+    const userData = localStorage.getItem('skillswap_user');
+    const authButtons = document.getElementById('authButtons');
+    const userMenu = document.getElementById('userMenu');
+    const userName = document.getElementById('userName');
+    const currentPath = window.location.pathname;
 
     if (isFirstLoad && loadingScreen) {
         sessionStorage.setItem('skillswap_session_started', 'true');
@@ -76,21 +64,25 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (loadingScreen) {
         loadingScreen.style.display = 'none';
     }
+    if (userData) {
+        const user = JSON.parse(userData);
+        authButtons.classList.add('d-none');
+        userMenu.classList.remove('d-none');
+        if (userName) userName.textContent = user.name || 'Demo User';
+    } else {
+        authButtons.classList.remove('d-none');
+        userMenu.classList.add('d-none');
+    }
 
-    checkAuthStatus();
     initializeAnimations();
 
-    const currentPath = window.location.pathname;
     if (currentPath.endsWith('index.html')) {
-        const userData = localStorage.getItem('skillswap_user');
         const getStartedButtons = document.getElementById('getStartedButtons');
         const portfolioButtons = document.getElementById('profileButtons');
-
         if (userData) {
             const user = JSON.parse(userData);
             getStartedButtons.classList.add('d-none');
             portfolioButtons.classList.remove('d-none');
-            if (userName) userName.textContent = user.name || 'Demo User';
         } else {
             getStartedButtons.classList.remove('d-none');
             portfolioButtons.classList.add('d-none');
@@ -102,15 +94,26 @@ document.addEventListener('DOMContentLoaded', function() {
     else if (currentPath.endsWith('discover.html')) {
         initializeFadeInAnimations('.course-card');
     } 
-    else if (currentPath.endsWith('auth.html')) {
+    else if (currentPath.endsWith('.auth.html')) {
         initializeFadeInAnimations('.animate-fade');
     } 
-    else if (currentPath.endsWith('about.html')) {  
-        initializeFadeInAnimations('.team-card');
+    else if (currentPath.endsWith('community.html')) {  
+        initializeFadeInAnimations('.community-card');
+        const communityBtn = document.getElementById('community-join')
+        if (userData) {
+            const user = JSON.parse(userData);
+            communityBtn.classList.add('d-none');
+            if (userName) userName.textContent = user.name || 'Demo User';
+        } else {
+            communityBtn.classList.remove('d-none');
+        }
     } 
     else if (currentPath.endsWith('404.html')) {
         initializeFadeInAnimations('.animate-fade');
-    }
+    }    
+    else if (currentPath.endsWith('mentors.html')) {
+        initializeFadeInAnimations('.mentor-card');
+    } 
 });
 
 function showToast(message, type = 'success') {
@@ -171,9 +174,11 @@ function demoLogin() {
 function filterCourses() {
     showToast('Course filtering coming soon!', 'info');
 }
+function filterMentors() {
+    showToast('Function coming soon!', 'info');
+}
 function logout() {
     localStorage.removeItem('skillswap_user');
-    checkAuthStatus();
     showToast('Logged out successfully');
     setTimeout(() => {
         window.location.reload();
@@ -192,7 +197,4 @@ function socialLogin(provider) {
 }
 function openProfile(){
     showToast('Profile coming soon!', 'info');
-}
-function joinCommunity(){
-    showToast('Function coming soon!', 'info');
 }
