@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const getStartedButtons = document.getElementById('getStartedButtons');
         const portfolioButtons = document.getElementById('profileButtons');
         if (userData) {
-            const user = JSON.parse(userData);
             getStartedButtons.classList.add('d-none');
             portfolioButtons.classList.remove('d-none');
         } else {
@@ -159,7 +158,7 @@ function togglePassword(inputId) {
 
 function demoLogin() {
     const userData = {
-        name: 'Demo User',
+        name: 'Demo',
         email: 'demo@skillswappro.com',
         avatar: null
     };
