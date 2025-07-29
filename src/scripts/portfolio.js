@@ -3,11 +3,41 @@ class PortfolioManager {
         this.jobsList = document.getElementById('savedJobsList');
         this.internshipsList = document.getElementById('savedInternshipsList');
         this.loadPortfolioData();
+        this.initializePlatformCards();
+    }
+
+    initializePlatformCards() {
+        const platformCards = document.querySelectorAll('.platform-card');
+        platformCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                const platformName = card.querySelector('h6').textContent;
+                this.showPlatformDetails(platformName);
+            });
+        });
+    }
+
+    showPlatformDetails(platformName) {
+        const platformUrls = {
+            'LeetCode': 'https://leetcode.com/',
+            'GeeksforGeeks': 'https://www.geeksforgeeks.org/',
+            'CodeChef': 'https://www.codechef.com/',
+            'HackerRank': 'https://www.hackerrank.com/',
+            'Codeforces': 'https://codeforces.com/',
+            'GitHub': 'https://github.com/'
+        };
+
+        if (platformUrls[platformName]) {
+            window.open(platformUrls[platformName], '_blank');
+        } else {
+            if (typeof showToast === 'function') {
+                showToast(`${platformName} profile integration coming soon!`, 'info');
+            }
+        }
     }
 
     loadPortfolioData() {
         const portfolioData = JSON.parse(localStorage.getItem('skillswap_portfolio') || '{"jobs": [], "internships": []}');
-        
         this.displaySavedItems(portfolioData.jobs, this.jobsList, 'job');
         this.displaySavedItems(portfolioData.internships, this.internshipsList, 'internship');
     }
@@ -32,7 +62,6 @@ class PortfolioManager {
 
     createPortfolioCard(item, type) {
         const addedDate = new Date(item.addedDate).toLocaleDateString();
-        
         return `
             <div class="col-md-6 col-lg-4 mb-3">
                 <div class="card h-100 border-success bg-success bg-opacity-10">
@@ -56,7 +85,6 @@ class PortfolioManager {
 
     removeItem(itemId, type) {
         const portfolioData = JSON.parse(localStorage.getItem('skillswap_portfolio') || '{"jobs": [], "internships": []}');
-        
         if (type === 'job') {
             portfolioData.jobs = portfolioData.jobs.filter(job => job.id !== itemId);
         } else {
