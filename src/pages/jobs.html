@@ -73,6 +73,14 @@
                     <p class="lead mb-4">
                         Explore job and internship opportunities tailored to your skills and preferences. Filter by skills, location, and/or platform.
                     </p>
+                    <div class="d-flex justify-content-center pt-5">
+                        <div class="btn-group" role="group" aria-label="Job Type Toggle">
+                            <input type="radio" class="btn-check" name="jobType" id="jobsToggle" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="jobsToggle">Jobs</label>
+                            <input type="radio" class="btn-check" name="jobType" id="internshipsToggle" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="internshipsToggle">Internships</label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -136,11 +144,13 @@
         </div>
 
         <section class="job-list-section py-5">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <h2 class="text-cyan mb-4 text-center">Job Listings</h2>
-                    <div id="jobList" class="list-group">
-                        <!-- Job listings will appear here -->
+                    <div class="col-12">
+                        <h2 class="text-cyan mb-4 text-center" id="listingTitle">Job Listings</h2>
+                        <div class="row g-4" id="jobList">
+                            <!-- Job listings will appear here -->
+                        </div>
                     </div>
                 </div>
             </div>
