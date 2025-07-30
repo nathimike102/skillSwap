@@ -2,42 +2,134 @@ class PortfolioManager {
     constructor() {
         this.jobsList = document.getElementById('savedJobsList');
         this.internshipsList = document.getElementById('savedInternshipsList');
-        this.leetcodeElements = {
-            username: document.getElementById('leetcode-username'),
-            problems: document.getElementById('leetcode-problems'),
-            rank: document.getElementById('leetcode-rank'),
-            easy: document.getElementById('leetcode-easy'),
-            medium: document.getElementById('leetcode-medium'),
-            hard: document.getElementById('leetcode-hard'),
-            connectBtn: document.getElementById('leetcode-connect-btn')
+        this.platformConfigs = {
+            leetcode: { elements: ['username', 'problems', 'rank', 'easy', 'medium', 'hard', 'connectBtn'], 
+                        prefix: 'leetcode',
+                        buttonColor: 'warning' },
+            gfg: {      elements: ['username', 'problems', 'score', 'rank', 'articles', 'easy', 'hard', 'connectBtn'], 
+                        prefix: 'gfg',
+                        buttonColor: 'success' },
+            codechef: { elements: ['username', 'rating', 'rank', 'stars', 'contests', 'problems', 'connectBtn'], 
+                        prefix: 'codechef',
+                        buttonColor: 'danger' },
+            hackerrank: { elements: ['username', 'badges', 'rank', 'certificates', 'problems', 'skills', 'connectBtn'], 
+                        prefix: 'hackerrank',
+                        buttonColor: 'info' },
+            codeforces: { elements: ['username', 'rating', 'max', 'contests', 'problems', 'rank', 'connectBtn'], 
+                        prefix: 'codeforces',
+                        buttonColor: 'info' },
+            github: { elements: ['username', 'repos', 'stars', 'watchers', 'followers', 'following', 'connectBtn'], 
+                        prefix: 'github',
+                        buttonColor: 'light' }
         };
+        this.platforms = Object.keys(this.platformConfigs);
+        this.initializePlatformElements();
+        this.loadSavedPlatformData();
         this.loadPortfolioData();
-        this.loadSavedLeetCodeData();
     }
 
-    getDefaultLeetCodeStats() {
-        return {
-            username: 'Not connected',
-            totalSolved: '...',
-            ranking: '...',
-            problems: { easy: '...', medium: '...', hard: '...' }
-        };
+    initializePlatformElements() {
+        this.platforms.forEach(platform => {
+            const config = this.platformConfigs[platform];
+            const elementsObj = {};
+            config.elements.forEach(elementType => {
+                const elementId = elementType === 'connectBtn' 
+                    ? `${config.prefix}-connect-btn` 
+                    : `${config.prefix}-${elementType}`;
+                elementsObj[elementType] = document.getElementById(elementId);
+            });
+            this[`${platform}Elements`] = elementsObj;
+        });
     }
 
-    loadSavedLeetCodeData() {
-        const savedData = localStorage.getItem('leetcode_profile');
-        if (savedData) {
-            try {
-                const stats = JSON.parse(savedData);
-                this.updateLeetCodeCard(stats);
-                this.refreshLeetCodeData();
-                return;
-            } catch (error) {
-                console.error('Error parsing saved LeetCode data:', error);
-            }
+    updateConnectButton(connectBtn, stats, color) {
+        if (connectBtn) {
+            const isConnected = stats.username && stats.username !== 'Not connected';
+            connectBtn.innerHTML = isConnected ? '<i class="bi bi-check-circle me-1"></i>Connected' : '<i class="bi bi-link-45deg me-1"></i>Connect';
+            connectBtn.className = isConnected ? 'btn btn-sm btn-outline-success flex-fill' : `btn btn-sm btn-outline-${color} flex-fill`;
         }
-        this.updateLeetCodeCard(this.getDefaultLeetCodeStats());
     }
+
+    getDefaultStats(platform) {
+        const config = this.platformConfigs[platform];
+        if (!config) return {};
+        const stats = {};
+        const defaultValues = ['Not connected', ...Array(config.elements.length - 2).fill('...')];
+        config.elements.forEach((element, index) => {
+            if (element === 'connectBtn') return;
+            if (platform === 'leetcode' && element === 'problems') {
+                stats[element] = { easy: '...', medium: '...', hard: '...' };
+            } else {
+                stats[element] = defaultValues[index] || '...';
+            }
+        });
+        if (platform === 'leetcode') Object.assign(stats, { totalSolved: '...', ranking: '...' });
+        return stats;
+    }
+
+    getDefaultLeetCodeStats() { return this.getDefaultStats('leetcode'); }
+    getDefaultGfgStats() { return this.getDefaultStats('gfg'); }
+    getDefaultCodeChefStats() { return this.getDefaultStats('codechef'); }
+    getDefaultHackerRankStats() { return this.getDefaultStats('hackerrank'); }
+    getDefaultCodeforcesStats() { return this.getDefaultStats('codeforces'); }
+    getDefaultGitHubStats() { return this.getDefaultStats('github'); }
+
+    loadSavedPlatformData() {
+        this.platforms.forEach(platform => {
+            const profileData = localStorage.getItem(`${platform}_profile`);
+            const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+            const updateMethod = this[`update${platformName}Card`];
+            const refreshMethod = this[`refresh${platformName}Data`];
+            const getDefaultMethod = this[`getDefault${platformName}Stats`];
+            if (profileData) {
+                try {
+                    const stats = JSON.parse(profileData);
+                    updateMethod.call(this, stats);
+                    if (refreshMethod) refreshMethod.call(this);
+                } catch (error) {
+                    updateMethod.call(this, getDefaultMethod.call(this));
+                }
+            } else {
+                updateMethod.call(this, getDefaultMethod.call(this));
+            }
+        });
+    }
+
+    updatePlatformCard(platform, stats) {
+        const elements = this[`${platform}Elements`];
+        const config = this.platformConfigs[platform];
+        if (!elements || !config) return;
+        const specialMappings = {
+            leetcode: {
+                problems: () => stats.totalSolved || '...',
+                rank: () => (stats.ranking && stats.ranking !== 'N/A') ? '#' + stats.ranking.toLocaleString() : '...',
+                easy: () => stats.problems?.easy || '...',
+                medium: () => stats.problems?.medium || '...',
+                hard: () => stats.problems?.hard || '...'
+            },
+            codechef: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' },
+            hackerrank: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' },
+            codeforces: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' }
+        };
+        config.elements.forEach(elementType => {
+            if (elementType === 'connectBtn') return;
+            const element = elements[elementType];
+            if (!element) return;
+            if (specialMappings[platform]?.[elementType]) {
+                element.textContent = specialMappings[platform][elementType]();
+            } else {
+                element.textContent = stats[elementType] || 'Not connected';
+            }
+        });
+        this.updateConnectButton(elements.connectBtn, stats, config.buttonColor);
+    }
+
+    updateLeetCodeCard(stats) { this.updatePlatformCard('leetcode', stats); }
+    updateGfgCard(stats) { this.updatePlatformCard('gfg', stats); }
+    updateCodeChefCard(stats) { this.updatePlatformCard('codechef', stats); }
+    updateHackerRankCard(stats) { this.updatePlatformCard('hackerrank', stats); }
+    updateCodeforcesCard(stats) { this.updatePlatformCard('codeforces', stats); }
+    updateGitHubCard(stats) { this.updatePlatformCard('github', stats); }
 
     async leetcodeData(username) {
         try {
@@ -56,66 +148,137 @@ class PortfolioManager {
         }
     }
 
-    async handleLeetCodeIntegration() {
-        const username = prompt('Enter your LeetCode username:');
+    async githubData(username) {
+        try {
+            const response = await fetch(`https://api.github.com/users/${username}`);
+            if (!response.ok) throw new Error(`GitHub API failed with status: ${response.status}`);
+            const userData = await response.json();
+            const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
+            if (!reposResponse.ok) throw new Error(`GitHub API failed with status: ${reposResponse.status}`);
+            const repos = await reposResponse.json();
+            
+            return {
+                username: username,
+                repos: userData.public_repos || 0,
+                stars: repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0),
+                watchers: repos.reduce((sum, repo) => sum + (repo.watchers_count || 0), 0),
+                followers: userData.followers || 0,
+                following: userData.following || 0
+            };
+        } catch (error) {
+            return { error: 'Failed to fetch GitHub data. Please check the username.' };
+        }
+    }
+
+    async handlePlatformIntegration(platform, promptText, hasAPI = false) {
+        const username = prompt(promptText);
         if (!username) return;
-        this.updateLeetCodeCard({
-            username: username,
-            totalSolved: 'Loading...',
-            ranking: 'Loading...',
-            problems: { easy: '...', medium: '...', hard: '...' }
-        });
-        const leetcodeData = await this.leetcodeData(username);
-        if (leetcodeData && !leetcodeData?.error) {
-            localStorage.setItem('leetcode_profile', JSON.stringify(leetcodeData));
-            this.updateLeetCodeCard(leetcodeData);
+        const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+        const updateMethod = this[`update${platformName}Card`];
+        const getDefaultMethod = this[`getDefault${platformName}Stats`];
+        const loadingStats = { username, ...Object.fromEntries(
+            this.platformConfigs[platform].elements
+                .filter(el => el !== 'connectBtn' && el !== 'username')
+                .map(el => [el, el === 'problems' && platform === 'leetcode' ? { easy: '...', medium: '...', hard: '...' } : 'Loading...'])
+        )};
+        updateMethod.call(this, loadingStats);
+        
+        if (hasAPI) {
+            const apiMethod = this[`${platform}Data`];
+            const apiData = await apiMethod.call(this, username);
+            if (apiData && !apiData.error) {
+                localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
+                updateMethod.call(this, apiData);
+                showToast(`${platformName} profile connected successfully!`, 'success');
+            } else {
+                showToast(apiData?.error || `Failed to connect ${platformName} profile.`, 'danger');
+                updateMethod.call(this, getDefaultMethod.call(this));
+            }
         } else {
-            showToast(leetcodeData.error, 'danger');
-            this.updateLeetCodeCard(this.getDefaultLeetCodeStats());
+            const config = this.platformConfigs[platform];
+            const placeholderData = { username, ...Object.fromEntries(
+                config.elements
+                    .filter(el => el !== 'connectBtn' && el !== 'username')
+                    .map(el => [el, 'N/A'])
+            )};
+            
+            localStorage.setItem(`${platform}_profile`, JSON.stringify(placeholderData));
+            updateMethod.call(this, placeholderData);
+            showToast(`${platformName} profile connected! (API integration pending)`, 'success');
         }
     }
 
-    updateLeetCodeCard(stats) {
-        const { username, problems, rank, easy, medium, hard, connectBtn } = this.leetcodeElements;
-        if (username) username.textContent = stats.username || 'Not connected';
-        if (problems) problems.textContent = stats.totalSolved || '...';
-        if (rank) rank.textContent = (stats.ranking && stats.ranking !== 'N/A') ? '#' + stats.ranking.toLocaleString(): '...';
-        if (easy && stats.problems) easy.textContent = stats.problems.easy || '...';
-        if (medium && stats.problems) medium.textContent = stats.problems.medium || '...';
-        if (hard && stats.problems) hard.textContent = stats.problems.hard || '...';
-        if (connectBtn) {
-            const isConnected = stats.username && stats.username !== 'Not connected';
-            connectBtn.innerHTML = isConnected ? '<i class="bi bi-check-circle me-1"></i>Connected': '<i class="bi bi-link-45deg me-1"></i>Connect';
-            connectBtn.className = isConnected ? 'btn btn-sm btn-outline-success flex-fill': 'btn btn-sm btn-outline-warning flex-fill';
-        }
+    async handleLeetCodeIntegration() {
+        await this.handlePlatformIntegration('leetcode', 'Enter your LeetCode username:', true);
     }
 
-    async refreshLeetCodeData() {
-        const savedData = localStorage.getItem('leetcode_profile');
+    async handleGfgIntegration() {
+        await this.handlePlatformIntegration('gfg', 'Enter your GeeksforGeeks username:', false);
+    }
+
+    async handleCodeChefIntegration() {
+        await this.handlePlatformIntegration('codechef', 'Enter your CodeChef username:', false);
+    }
+
+    async handleHackerRankIntegration() {
+        await this.handlePlatformIntegration('hackerrank', 'Enter your HackerRank username:', false);
+    }
+
+    async handleCodeforcesIntegration() {
+        await this.handlePlatformIntegration('codeforces', 'Enter your Codeforces username:', false);
+    }
+
+    async handleGitHubIntegration() {
+        await this.handlePlatformIntegration('github', 'Enter your GitHub username:', true);
+    }
+
+    async refreshPlatformData(platform, hasAPI = false) {
+        const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+        const savedData = localStorage.getItem(`${platform}_profile`);
+        const updateMethod = this[`update${platformName}Card`];
+        const getDefaultMethod = this[`getDefault${platformName}Stats`];
         if (!savedData) {
-            showToast('No LeetCode profile connected. Please connect first.', 'warning');
+            updateMethod.call(this, getDefaultMethod.call(this));
+            showToast(`No ${platformName} profile connected. Please connect first.`, 'warning');
             return;
         }
+        if (!hasAPI) {
+            showToast(`${platformName} API integration coming soon!`, 'info');
+            return;
+        }
+        const stats = JSON.parse(savedData);
         if (!stats.username) {
             showToast('Invalid profile data. Please reconnect.', 'danger');
             return;
         }
-        this.updateLeetCodeCard({
-            username: stats.username,
-            totalSolved: 'Refreshing...',
-            ranking: 'Refreshing...',
-            problems: { easy: '...', medium: '...', hard: '...' }
-        });
-        const stats = JSON.parse(savedData);
-        const leetcodeData = await this.leetcodeData(stats.username);
-        if (leetcodeData && !leetcodeData?.error) {
-            localStorage.setItem('leetcode_profile', JSON.stringify(leetcodeData));
-            this.updateLeetCodeCard(leetcodeData);
+        const refreshingStats = { ...stats };
+        this.platformConfigs[platform].elements
+            .filter(el => el !== 'connectBtn' && el !== 'username')
+            .forEach(el => {
+                if (el !== 'problems' || platform !== 'leetcode') {
+                    refreshingStats[el] = 'Refreshing...';
+                }
+            });
+        updateMethod.call(this, refreshingStats);
+        const apiMethod = this[`${platform}Data`];
+        const apiData = await apiMethod.call(this, stats.username);
+        if (apiData && !apiData.error) {
+            localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
+            if (platform === 'github') await new Promise(resolve => setTimeout(resolve, 2000));
+            updateMethod.call(this, apiData);
+            showToast(`${platformName} data refreshed successfully!`, 'success');
         } else {
-            showToast(leetcodeData.error, 'danger');
-            this.updateLeetCodeCard(stats);
+            showToast(apiData?.error || 'Failed to refresh data', 'danger');
+            updateMethod.call(this, stats);
         }
     }
+
+    async refreshLeetCodeData() { await this.refreshPlatformData('leetcode', true); }
+    async refreshGfgData() { await this.refreshPlatformData('gfg', false); }
+    async refreshCodeChefData() { await this.refreshPlatformData('codechef', false); }
+    async refreshHackerRankData() { await this.refreshPlatformData('hackerrank', false); }
+    async refreshCodeforcesData() { await this.refreshPlatformData('codeforces', false); }
+    async refreshGitHubData() { await this.refreshPlatformData('github', true); }
 
     loadPortfolioData() {
         const portfolioData = JSON.parse(localStorage.getItem('skillswap_portfolio') || '{"jobs": [], "internships": []}');
@@ -198,7 +361,7 @@ class PortfolioManager {
             showToast(`${type.charAt(0).toUpperCase() + type.slice(1)} removed from portfolio`, 'info');
         }
     }
-}
+};
 
 let portfolioManager;
 document.addEventListener('DOMContentLoaded', function() {
