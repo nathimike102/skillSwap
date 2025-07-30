@@ -12,7 +12,7 @@ class PortfolioManager {
             connectBtn: document.getElementById('leetcode-connect-btn')
         };
         this.loadPortfolioData();
-        this.refreshLeetCodeData();
+        this.loadSavedLeetCodeData();
     }
 
     getDefaultLeetCodeStats() {
@@ -22,6 +22,21 @@ class PortfolioManager {
             ranking: '...',
             problems: { easy: '...', medium: '...', hard: '...' }
         };
+    }
+
+    loadSavedLeetCodeData() {
+        const savedData = localStorage.getItem('leetcode_profile');
+        if (savedData) {
+            try {
+                const stats = JSON.parse(savedData);
+                this.updateLeetCodeCard(stats);
+                this.refreshLeetCodeData();
+                return;
+            } catch (error) {
+                console.error('Error parsing saved LeetCode data:', error);
+            }
+        }
+        this.updateLeetCodeCard(this.getDefaultLeetCodeStats());
     }
 
     async leetcodeData(username) {
