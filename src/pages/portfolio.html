@@ -65,299 +65,405 @@
     </nav>
 
     <main style="padding-top: 100px;">
-        <section class="py-5">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h1 class="display-4 fw-bold mb-4">
-                        <span class="text-cyan">My Portfolio</span>
-                    </h1>
-                    <p class="lead mb-4">
-                        Track your saved jobs, internships, and career progress.
-                    </p>
-                </div>
-            
-                <div class="row mb-5">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body p-4">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="text-center mb-4">
-                                            <img src="../../public/assets/images/profiles/23MH1A05H9.png" 
-                                                 alt="Profile Photo" 
-                                                 class="img-fluid rounded-circle mb-3" 
-                                                 width="120" height="120">
-                                            <h4 class="text-primary mb-1">Nkosinathi Michael Sibanda</h4>
-                                            <p class="text-muted mb-2">Full Stack Developer</p>
-                                            <p class="text-cyan small mb-3">nathimike102@gmail.com</p>
+        <section class="container py-5">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-4">
+                    <span class="text-cyan">My Portfolio</span>
+                </h1>
+                <p class="lead mb-4">
+                    Track your career progress, saved jobs, internships, and skills.
+                </p>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="text-center mb-4">
+                                        <img src="../../public/assets/images/profiles/23MH1A05H9.png" 
+                                             alt="Profile Photo" 
+                                             class="img-fluid rounded-circle mb-3" 
+                                             width="120" height="120">
+                                        <h4 class="text-primary mb-1">Nkosinathi Michael Sibanda</h4>
+                                        <p class="text-muted mb-2">Full Stack Developer</p>
+                                        <p class="text-cyan small mb-3">nathimike102@gmail.com</p>
+                                    </div>
+                                    <div class="user-stats">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted small">Profile Completion</span>
+                                            <span class="text-primary small fw-bold">85%</span>
                                         </div>
-                                        <div class="user-stats">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="text-muted small">Profile Completion</span>
-                                                <span class="text-primary small fw-bold">85%</span>
+                                        <div class="progress mb-3" style="height: 6px;">
+                                            <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                        </div>
+                                        <div class="stats-grid">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="text-muted small">Problems Solved</span>
+                                                <span class="badge bg-success">247</span>
                                             </div>
-                                            <div class="progress mb-3" style="height: 6px;">
-                                                <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="text-muted small">Skills Learned</span>
+                                                <span class="badge bg-info">12</span>
                                             </div>
-                                            
-                                            <div class="stats-grid">
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span class="text-muted small">Problems Solved</span>
-                                                    <span class="badge bg-success">247</span>
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span class="text-muted small">Projects</span>
+                                                <span class="badge bg-warning">8</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <h5 class="text-primary mb-4">
+                                        <i class="bi bi-code-square me-2"></i>Coding Platforms
+                                    </h5>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-warning">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/leetcode.png" alt="LeetCode" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-warning mb-1">LeetCode</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="leetcode-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="leetcode-problems"></div>
+                                                                <small class="text-muted">Problems</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="leetcode-rank"></div>
+                                                                <small class="text-muted">Rank</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="leetcode-easy"></div>
+                                                                <small class="text-muted">Easy</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="leetcode-medium"></div>
+                                                                <small class="text-muted">Medium</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="leetcode-hard"></div>
+                                                                <small class="text-muted">Hard</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3 d-flex gap-2">
+                                                        <button class="btn btn-sm btn-outline-warning flex-fill" 
+                                                                onclick="portfolioManager.handleLeetCodeIntegration()"
+                                                                id="leetcode-connect-btn">
+                                                            <i class="bi bi-link-45deg me-1"></i>Connect
+                                                        </button>
+                                                        <button class="btn btn-sm btn-outline-secondary" 
+                                                                onclick="portfolioManager.refreshLeetCodeData()"
+                                                                id="leetcode-refresh-btn">
+                                                            <i class="bi bi-arrow-clockwise"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span class="text-muted small">Skills Learned</span>
-                                                    <span class="badge bg-info">12</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-success">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/gfg.png" alt="GeeksforGeeks" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-success mb-1">GeeksforGeeks</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="gfg-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="gfg-problems"></div>
+                                                                <small class="text-muted">Problems</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="gfg-score"></div>
+                                                                <small class="text-muted">Score</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="gfg-articles"></div>
+                                                                <small class="text-muted">Articles</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="gfg-easy"></div>
+                                                                <small class="text-muted">Easy</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="gfg-hard"></div>
+                                                                <small class="text-muted">Hard</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex justify-content-between mb-2">
-                                                    <span class="text-muted small">Projects</span>
-                                                    <span class="badge bg-warning">8</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-danger">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/codechef.png" alt="CodeChef" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-danger mb-1">CodeChef</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="codechef-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="codechef-rating"></div>
+                                                                <small class="text-muted">Rating</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="codechef-rank"></div>
+                                                                <small class="text-muted">Rank</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="codechef-stars"></div>
+                                                                <small class="text-muted">Stars</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="codechef-contests"></div>
+                                                                <small class="text-muted">Contests</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="codechef-problems"></div>
+                                                                <small class="text-muted">Problems</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-info">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/hackerrank.png" alt="HackerRank" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-info mb-1">HackerRank</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="hackerrank-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="hackerrank-badges"></div>
+                                                                <small class="text-muted">Badges</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="hackerrank-rank"></div>
+                                                                <small class="text-muted">Rank</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="hackerrank-certificates"></div>
+                                                                <small class="text-muted">Certificates</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="hackerrank-problems"></div>
+                                                                <small class="text-muted">Problems</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="hackerrank-skills"></div>
+                                                                <small class="text-muted">Skills</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-primary">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/codeforces.png" alt="Codeforces" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-primary mb-1">Codeforces</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="codeforces-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="codeforces-rating"></div>
+                                                                <small class="text-muted">Rating</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="codeforces-max"></div>
+                                                                <small class="text-muted">Max</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="codeforces-contests"></div>
+                                                                <small class="text-muted">Contests</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="codeforces-problems"></div>
+                                                                <small class="text-muted">Problems</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="codeforces-rank"></div>
+                                                                <small class="text-muted">Rank</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card platform-card h-100 border-secondary">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <img src="../../public/assets/images/icons/github.png" alt="GitHub" width="54" height="54" class="me-3">
+                                                        <div>
+                                                            <h5 class="card-title text-secondary mb-1">GitHub</h5>
+                                                            <p class="card-text mb-0 text-muted small">Username: <span class="fw-bold text-primary" id="github-username"></span></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center mb-2">
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-primary" id="github-repos"></div>
+                                                                <small class="text-muted">Repos</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-5 fw-bold text-success" id="github-followers"></div>
+                                                                <small class="text-muted">Followers</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                    
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-info" id="github-stars"></div>
+                                                                <small class="text-muted">Stars</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="github-forks"></div>
+                                                                <small class="text-muted">Forks</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="bg-light p-2 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="github-commits"></div>
+                                                                <small class="text-muted">Commits</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-9">
-                                        <h5 class="text-primary mb-4">
-                                            <i class="bi bi-code-square me-2"></i>Coding Platforms
-                                        </h5>
-                                        <div class="row g-3">
-
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-warning">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-warning bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-lightning-charge text-warning fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-warning">LeetCode</h6>
-                                                                <small class="text-muted">Algorithm Practice</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Problems Solved</span>
-                                                                <span class="badge bg-warning">156</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Ranking</span>
-                                                                <span class="text-warning small">Guardian</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Contest Rating</span>
-                                                                <span class="text-warning small">1847</span>
-                                                            </div>
-                                                        </div>
+                                    
+                                    <div class="row mt-4">
+                                        <div class="col-12 mb-3">
+                                            <h6 class="text-primary mb-3">
+                                                <i class="bi bi-activity me-2"></i>SkillSwap Pro Activity
+                                            </h6>
+                                        </div>
+                                        
+                                        <div class="col-12 mb-3">
+                                            <div class="card heatmap-card">
+                                                <div class="card-body">
+                                                    <h6 class="text-cyan mb-3">
+                                                        <i class="bi bi-book me-2"></i>Learning Activity
+                                                    </h6>
+                                                    <div class="heatmap-grid" id="learningHeatmap">
+                                                        <!-- heat map here -->
                                                     </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-success">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-success bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-trophy text-success fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-success">GeeksforGeeks</h6>
-                                                                <small class="text-muted">DSA & Interviews</small>
-                                                            </div>
+                                                    <div class="heatmap-legend mt-2 d-flex justify-content-center">
+                                                        <small class="text-muted">Less</small>
+                                                        <div class="legend-squares d-flex flex-row m-2">
+                                                            <div class="bg-info border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-info border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-info border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-info border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-info border" style="width: 10px; height: 10px;"></div>
                                                         </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Problems Solved</span>
-                                                                <span class="badge bg-success">89</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Score</span>
-                                                                <span class="text-success small">2,340</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Articles Read</span>
-                                                                <span class="text-success small">145</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-danger">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-danger bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-fire text-danger fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-danger">CodeChef</h6>
-                                                                <small class="text-muted">Competitive Programming</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Current Rating</span>
-                                                                <span class="badge bg-danger">1456</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Stars</span>
-                                                                <span class="text-danger small">3★</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Global Rank</span>
-                                                                <span class="text-danger small">#12,453</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-info">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-info bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-shield-check text-info fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-info">HackerRank</h6>
-                                                                <small class="text-muted">Skills Assessment</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Badges Earned</span>
-                                                                <span class="badge bg-info">17</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Certificates</span>
-                                                                <span class="text-info small">5</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Rank</span>
-                                                                <span class="text-info small">Gold</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-primary">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-primary bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-cpu text-primary fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-primary">Codeforces</h6>
-                                                                <small class="text-muted">Competitive Programming</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Current Rating</span>
-                                                                <span class="badge bg-primary">1654</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Max Rating</span>
-                                                                <span class="text-primary small">1789</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Contests</span>
-                                                                <span class="text-primary small">23</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-6">
-                                                <div class="card platform-card h-100 border-secondary">
-                                                    <div class="card-body">
-                                                        <div class="d-flex align-items-center mb-3">
-                                                            <div class="platform-icon bg-secondary bg-opacity-10 rounded p-2 me-3">
-                                                                <i class="bi bi-github text-secondary fs-4"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h6 class="mb-0 text-secondary">GitHub</h6>
-                                                                <small class="text-muted">Code Repository</small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="platform-stats">
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Repositories</span>
-                                                                <span class="badge bg-secondary">42</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between mb-2">
-                                                                <span class="small">Followers</span>
-                                                                <span class="text-secondary small">128</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between">
-                                                                <span class="small">Stars</span>
-                                                                <span class="text-secondary small">234</span>
-                                                            </div>
-                                                        </div>
+                                                        <small class="text-muted">More</small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                        <div class="row py-4 mt-4">
-                                            <div class="col-12">
-                                                <h6 class="text-primary mb-3">
-                                                    <i class="bi bi-activity me-2"></i>SkillSwap Pro Activity
-                                                </h6>
-                                            </div>
-                                            
-                                            <div class="col-12 mb-3">
-                                                <div class="card heatmap-card h-100">
-                                                    <div class="card-body d-flex flex-column">
-                                                        <h6 class="text-cyan mb-3">
-                                                            <i class="bi bi-book me-2"></i>Learning Activity
-                                                        </h6>
-                                                        <div class="heatmap-container">
-                                                            <div class="heatmap-grid" id="learningHeatmap">
-                                                                <!-- heat map here -->
-                                                            </div>
-                                                            <div class="heatmap-legend mt-2 d-flex justify-content-center">
-                                                                <small class="text-muted">Less</small>
-                                                                <div class="legend-squares d-flex flex-row m-2">
-                                                                    <div class="bg-info border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-info border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-info border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-info border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-info border" style="width: 10px; height: 10px;"></div>
-                                                                </div>
-                                                                <small class="text-muted">More</small>
-                                                            </div>
-                                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <div class="card heatmap-card">
+                                                <div class="card-body">
+                                                    <h6 class="text-success mb-3">
+                                                        <i class="bi bi-puzzle me-2"></i>Problem Solving Activity
+                                                    </h6>
+                                                    <div class="heatmap-grid" id="codingHeatmap">
+                                                        <!-- heat map here -->
                                                     </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-12 mb-3">
-                                                <div class="card heatmap-card h-100">
-                                                    <div class="card-body">
-                                                        <h6 class="text-success mb-3">
-                                                            <i class="bi bi-puzzle me-2"></i>Problem Solving Activity
-                                                        </h6>
-                                                        <div class="heatmap-container">
-                                                            <div class="heatmap-grid" id="codingHeatmap">
-                                                                <!-- heat map here -->
-                                                            </div>
-                                                            <div class="heatmap-legend mt-2 d-flex justify-content-center">
-                                                                <small class="text-muted">Less</small>
-                                                                <div class="legend-squares d-flex flex-row m-2">
-                                                                    <div class="bg-success border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-success border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-success border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-success border" style="width: 10px; height: 10px;"></div>
-                                                                    <div class="bg-success border" style="width: 10px; height: 10px;"></div>
-                                                                </div>
-                                                                <small class="text-muted">More</small>
-                                                            </div>
+                                                    <div class="heatmap-legend mt-2 d-flex justify-content-center">
+                                                        <small class="text-muted">Less</small>
+                                                        <div class="legend-squares d-flex flex-row m-2">
+                                                            <div class="bg-success border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-success border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-success border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-success border" style="width: 10px; height: 10px;"></div>
+                                                            <div class="bg-success border" style="width: 10px; height: 10px;"></div>
                                                         </div>
+                                                        <small class="text-muted">More</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -368,34 +474,34 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row mb-5">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="text-primary mb-0">
-                                    <i class="bi bi-briefcase me-2"></i>Saved Jobs
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                <div id="savedJobsList" class="row g-3">
-                                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="text-primary mb-0">
+                                <i class="bi bi-briefcase me-2"></i>Saved Jobs
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="savedJobsList" class="row g-3">
+                                <!-- Job cards will be here -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row mb-5">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="text-primary mb-0">
-                                    <i class="bi bi-mortarboard me-2"></i>Saved Internships
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                <div id="savedInternshipsList" class="row g-3">
-                                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="text-primary mb-0">
+                                <i class="bi bi-mortarboard me-2"></i>Saved Internships
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="savedInternshipsList" class="row g-3">
+                                <!-- Internship cards will be here -->
                             </div>
                         </div>
                     </div>
