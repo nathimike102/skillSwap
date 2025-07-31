@@ -3,24 +3,30 @@ class PortfolioManager {
         this.jobsList = document.getElementById('savedJobsList');
         this.internshipsList = document.getElementById('savedInternshipsList');
         this.platformConfigs = {
-            leetcode: { elements: ['username', 'problems', 'rank', 'easy', 'medium', 'hard', 'connectBtn'], 
-                        prefix: 'leetcode',
-                        buttonColor: 'warning' },
-            gfg: {      elements: ['username', 'problems', 'score', 'rank', 'articles', 'easy', 'hard', 'connectBtn'], 
-                        prefix: 'gfg',
-                        buttonColor: 'success' },
-            codechef: { elements: ['username', 'rating', 'rank', 'stars', 'contests', 'problems', 'connectBtn'], 
-                        prefix: 'codechef',
-                        buttonColor: 'danger' },
-            hackerrank: { elements: ['username', 'badges', 'rank', 'certificates', 'problems', 'skills', 'connectBtn'], 
-                        prefix: 'hackerrank',
-                        buttonColor: 'info' },
-            codeforces: { elements: ['username', 'rating', 'max', 'contests', 'problems', 'rank', 'connectBtn'], 
-                        prefix: 'codeforces',
-                        buttonColor: 'info' },
-            github: { elements: ['username', 'repos', 'stars', 'watchers', 'followers', 'following', 'connectBtn'], 
-                        prefix: 'github',
-                        buttonColor: 'light' }
+            leetcode: { 
+                elements: ['username', 'problems', 'rank', 'easy', 'medium', 'hard', 'connectBtn'], 
+                buttonColor: 'warning'
+            },
+            gfg: { 
+                elements: ['username', 'problems', 'score', 'articles', 'easy', 'hard', 'connectBtn'], 
+                buttonColor: 'success'
+            },
+            codechef: { 
+                elements: ['username', 'rating', 'rank', 'stars', 'contests', 'problems', 'connectBtn'], 
+                buttonColor: 'danger'
+            },
+            hackerrank: { 
+                elements: ['username', 'badges', 'rank', 'certificates', 'problems', 'skills', 'connectBtn'], 
+                buttonColor: 'info'
+            },
+            codeforces: { 
+                elements: ['username', 'rating', 'max', 'contests', 'problems', 'rank', 'connectBtn'], 
+                buttonColor: 'info'
+            },
+            github: { 
+                elements: ['username', 'repos', 'stars', 'watchers', 'followers', 'following', 'connectBtn'], 
+                buttonColor: 'light'
+            }
         };
         this.platforms = Object.keys(this.platformConfigs);
         this.initializePlatformElements();
@@ -34,9 +40,10 @@ class PortfolioManager {
             const elementsObj = {};
             config.elements.forEach(elementType => {
                 const elementId = elementType === 'connectBtn' 
-                    ? `${config.prefix}-connect-btn` 
-                    : `${config.prefix}-${elementType}`;
-                elementsObj[elementType] = document.getElementById(elementId);
+                    ? `${platform}-connect-btn` 
+                    : `${platform}-${elementType}`;
+                const element = document.getElementById(elementId);
+                elementsObj[elementType] = element;
             });
             this[`${platform}Elements`] = elementsObj;
         });
@@ -44,7 +51,7 @@ class PortfolioManager {
 
     updateConnectButton(connectBtn, stats, color) {
         if (connectBtn) {
-            const isConnected = stats.username && stats.username !== 'Not connected';
+            const isConnected = stats && stats.username && stats.username !== 'Not connected';
             connectBtn.innerHTML = isConnected ? '<i class="bi bi-check-circle me-1"></i>Connected' : '<i class="bi bi-link-45deg me-1"></i>Connect';
             connectBtn.className = isConnected ? 'btn btn-sm btn-outline-success flex-fill' : `btn btn-sm btn-outline-${color} flex-fill`;
         }
@@ -53,17 +60,24 @@ class PortfolioManager {
     getDefaultStats(platform) {
         const config = this.platformConfigs[platform];
         if (!config) return {};
+        
         const stats = {};
         const defaultValues = ['Not connected', ...Array(config.elements.length - 2).fill('...')];
+        
         config.elements.forEach((element, index) => {
             if (element === 'connectBtn') return;
+            
             if (platform === 'leetcode' && element === 'problems') {
                 stats[element] = { easy: '...', medium: '...', hard: '...' };
             } else {
                 stats[element] = defaultValues[index] || '...';
             }
         });
-        if (platform === 'leetcode') Object.assign(stats, { totalSolved: '...', ranking: '...' });
+        
+        if (platform === 'leetcode') {
+            Object.assign(stats, { totalSolved: '...', ranking: '...' });
+        }
+        
         return stats;
     }
 
@@ -77,10 +91,18 @@ class PortfolioManager {
     loadSavedPlatformData() {
         this.platforms.forEach(platform => {
             const profileData = localStorage.getItem(`${platform}_profile`);
-            const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+            const platformName = platform === 'leetcode' ? 'LeetCode' :
+                               platform === 'gfg' ? 'Gfg' :
+                               platform === 'codechef' ? 'CodeChef' :
+                               platform === 'hackerrank' ? 'HackerRank' :
+                               platform === 'codeforces' ? 'Codeforces' :
+                               platform === 'github' ? 'GitHub' : 
+                               platform.charAt(0).toUpperCase() + platform.slice(1);
+            
             const updateMethod = this[`update${platformName}Card`];
             const refreshMethod = this[`refresh${platformName}Data`];
             const getDefaultMethod = this[`getDefault${platformName}Stats`];
+            
             if (profileData) {
                 try {
                     const stats = JSON.parse(profileData);
@@ -92,13 +114,17 @@ class PortfolioManager {
             } else {
                 updateMethod.call(this, getDefaultMethod.call(this));
             }
-        });
+        });        
     }
 
     updatePlatformCard(platform, stats) {
         const elements = this[`${platform}Elements`];
         const config = this.platformConfigs[platform];
-        if (!elements || !config) return;
+        
+        if (!elements || !config) {
+            return;
+        }
+        
         const specialMappings = {
             leetcode: {
                 problems: () => stats.totalSolved || '...',
@@ -107,18 +133,36 @@ class PortfolioManager {
                 medium: () => stats.problems?.medium || '...',
                 hard: () => stats.problems?.hard || '...'
             },
-            codechef: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' },
-            hackerrank: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' },
-            codeforces: { rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' }
+            codechef: { 
+                rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' 
+            },
+            hackerrank: { 
+                rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' 
+            },
+            codeforces: { 
+                rank: () => stats.rank ? '#' + stats.rank.toLocaleString() : '...' 
+            }
         };
+        
         config.elements.forEach(elementType => {
             if (elementType === 'connectBtn') return;
+            
             const element = elements[elementType];
-            if (!element) return;
-            if (specialMappings[platform]?.[elementType]) {
-                element.textContent = specialMappings[platform][elementType]();
-            } else {
-                element.textContent = stats[elementType] || 'Not connected';
+            if (!element) {
+                return;
+            }
+            
+            try {
+                if (specialMappings[platform]?.[elementType]) {
+                    const value = specialMappings[platform][elementType]();
+                    element.textContent = value;
+                } else {
+                    const defaultValue = elementType === 'username' ? 'Not connected' : '...';
+                    const value = stats[elementType] || defaultValue;
+                    element.textContent = value;
+                }
+            } catch (error) {
+                // Silent error handling
             }
         });
         this.updateConnectButton(elements.connectBtn, stats, config.buttonColor);
@@ -173,9 +217,18 @@ class PortfolioManager {
     async handlePlatformIntegration(platform, promptText, hasAPI = false) {
         const username = prompt(promptText);
         if (!username) return;
-        const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+        
+        const platformName = platform === 'leetcode' ? 'LeetCode' :
+                           platform === 'gfg' ? 'Gfg' :
+                           platform === 'codechef' ? 'CodeChef' :
+                           platform === 'hackerrank' ? 'HackerRank' :
+                           platform === 'codeforces' ? 'Codeforces' :
+                           platform === 'github' ? 'GitHub' : 
+                           platform.charAt(0).toUpperCase() + platform.slice(1);
+        
         const updateMethod = this[`update${platformName}Card`];
         const getDefaultMethod = this[`getDefault${platformName}Stats`];
+        
         const loadingStats = { username, ...Object.fromEntries(
             this.platformConfigs[platform].elements
                 .filter(el => el !== 'connectBtn' && el !== 'username')
@@ -186,12 +239,17 @@ class PortfolioManager {
         if (hasAPI) {
             const apiMethod = this[`${platform}Data`];
             const apiData = await apiMethod.call(this, username);
+            
             if (apiData && !apiData.error) {
                 localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
                 updateMethod.call(this, apiData);
-                showToast(`${platformName} profile connected successfully!`, 'success');
+                if (typeof showToast === 'function') {
+                    showToast(`${platformName} profile connected successfully!`, 'success');
+                }
             } else {
-                showToast(apiData?.error || `Failed to connect ${platformName} profile.`, 'danger');
+                if (typeof showToast === 'function') {
+                    showToast(apiData?.error || `Failed to connect ${platformName} profile.`, 'danger');
+                }
                 updateMethod.call(this, getDefaultMethod.call(this));
             }
         } else {
@@ -204,7 +262,9 @@ class PortfolioManager {
             
             localStorage.setItem(`${platform}_profile`, JSON.stringify(placeholderData));
             updateMethod.call(this, placeholderData);
-            showToast(`${platformName} profile connected! (API integration pending)`, 'success');
+            if (typeof showToast === 'function') {
+                showToast(`${platformName} profile connected! (API integration pending)`, 'success');
+            }
         }
     }
 
@@ -233,24 +293,41 @@ class PortfolioManager {
     }
 
     async refreshPlatformData(platform, hasAPI = false) {
-        const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
+        const platformName = platform === 'leetcode' ? 'LeetCode' :
+                           platform === 'gfg' ? 'Gfg' :
+                           platform === 'codechef' ? 'CodeChef' :
+                           platform === 'hackerrank' ? 'HackerRank' :
+                           platform === 'codeforces' ? 'Codeforces' :
+                           platform === 'github' ? 'GitHub' : 
+                           platform.charAt(0).toUpperCase() + platform.slice(1);
+        
         const savedData = localStorage.getItem(`${platform}_profile`);
         const updateMethod = this[`update${platformName}Card`];
         const getDefaultMethod = this[`getDefault${platformName}Stats`];
+        
         if (!savedData) {
             updateMethod.call(this, getDefaultMethod.call(this));
-            showToast(`No ${platformName} profile connected. Please connect first.`, 'warning');
+            if (typeof showToast === 'function') {
+                showToast(`No ${platformName} profile connected. Please connect first.`, 'warning');
+            }
             return;
         }
+        
         if (!hasAPI) {
-            showToast(`${platformName} API integration coming soon!`, 'info');
+            if (typeof showToast === 'function') {
+                showToast(`${platformName} API integration coming soon!`, 'info');
+            }
             return;
         }
+        
         const stats = JSON.parse(savedData);
         if (!stats.username) {
-            showToast('Invalid profile data. Please reconnect.', 'danger');
+            if (typeof showToast === 'function') {
+                showToast('Invalid profile data. Please reconnect.', 'danger');
+            }
             return;
         }
+        
         const refreshingStats = { ...stats };
         this.platformConfigs[platform].elements
             .filter(el => el !== 'connectBtn' && el !== 'username')
@@ -260,15 +337,21 @@ class PortfolioManager {
                 }
             });
         updateMethod.call(this, refreshingStats);
+        
         const apiMethod = this[`${platform}Data`];
         const apiData = await apiMethod.call(this, stats.username);
+        
         if (apiData && !apiData.error) {
             localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
             if (platform === 'github') await new Promise(resolve => setTimeout(resolve, 2000));
             updateMethod.call(this, apiData);
-            showToast(`${platformName} data refreshed successfully!`, 'success');
+            if (typeof showToast === 'function') {
+                showToast(`${platformName} data refreshed successfully!`, 'success');
+            }
         } else {
-            showToast(apiData?.error || 'Failed to refresh data', 'danger');
+            if (typeof showToast === 'function') {
+                showToast(apiData?.error || 'Failed to refresh data', 'danger');
+            }
             updateMethod.call(this, stats);
         }
     }
