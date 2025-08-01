@@ -32,6 +32,7 @@ class PortfolioManager {
         this.initializePlatformElements();
         this.loadSavedPlatformData();
         this.loadPortfolioData();
+        this.displayResume();
     }
 
     initializePlatformElements() {
@@ -151,7 +152,6 @@ class PortfolioManager {
             if (!element) {
                 return;
             }
-            
             try {
                 if (specialMappings[platform]?.[elementType]) {
                     const value = specialMappings[platform][elementType]();
@@ -162,7 +162,7 @@ class PortfolioManager {
                     element.textContent = value;
                 }
             } catch (error) {
-                // Silent error handling
+                element.textContent = 'Error';
             }
         });
         this.updateConnectButton(elements.connectBtn, stats, config.buttonColor);
@@ -192,6 +192,102 @@ class PortfolioManager {
         }
     }
 
+    async gfgData(username) {
+        try {
+            const proxyUrl = "https://api.allorigins.win/get?url=";
+            const gfgUrl = `https://auth.geeksforgeeks.org/user/${username}/practice/`;
+            
+            const response = await fetch(proxyUrl + encodeURIComponent(gfgUrl));
+            const data = await response.json();
+            
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.contents, "text/html");
+            
+            const problems = doc.querySelector(".score_card_value")?.textContent || "N/A";
+            const easy = doc.querySelector(".easy")?.textContent || "N/A";
+            const hard = doc.querySelector(".hard")?.textContent || "N/A";
+            
+            return {
+                username,
+                problems,
+                score: "N/A",
+                articles: "N/A",
+                easy,
+                hard
+            };
+        } catch (error) {
+            return { error: 'Failed to fetch GFG data. Please try again.' };
+        }
+    }
+
+    async codechefData(username) {
+        try {
+            const response = await fetch(`https://competitive-coding-api.herokuapp.com/api/codechef/${username}`);
+            const data = await response.json();
+            
+            if (data.status === "Success") {
+                return {
+                    username: data.user_details.username,
+                    rating: data.rating || "N/A",
+                    rank: data.global_rank || "N/A",
+                    stars: data.stars || "N/A",
+                    contests: data.fully_solved.count || "N/A",
+                    problems: data.fully_solved.count || "N/A"
+                };
+            } else {
+                throw new Error(data.message || "Failed to fetch data");
+            }
+        } catch (error) {
+            console.error("CodeChef API Error:", error);
+            return { error: 'Failed to fetch CodeChef data. Please try again.' };
+        }
+    }
+
+    async hackerrankData(username) {
+        try {
+            const response = await fetch(`https://competitive-coding-api.herokuapp.com/api/hackerrank/${username}`);
+            const data = await response.json();
+            
+            if (data.status === "Success") {
+                return {
+                    username: data.username,
+                    badges: data.badges.length || "N/A",
+                    rank: data.rank || "N/A",
+                    certificates: data.certificates.length || "N/A",
+                    problems: data.problems_solved || "N/A",
+                    skills: data.skills.length || "N/A"
+                };
+            } else {
+                throw new Error(data.message || "Failed to fetch data");
+            }
+        } catch (error) {
+            return { error: 'Failed to fetch HackerRank data. Please try again.' };
+        }
+    }
+
+    async codeforcesData(username) {
+        try {
+            const response = await fetch(`https://codeforces.com/api/user.info?handles=${username}`);
+            const data = await response.json();
+            
+            if (data.status === "OK") {
+                const user = data.result[0];
+                return {
+                    username: user.handle,
+                    rating: user.rating || "N/A",
+                    max: user.maxRating || "N/A",
+                    contests: user.contribution || "N/A",
+                    problems: "N/A",
+                    rank: user.rank || "N/A"
+                };
+            } else {
+                throw new Error(data.comment || "Failed to fetch data");
+            }
+        } catch (error) {
+            return {error: 'Failed to fetch Codeforces data. Please try again.' };
+        }
+    }
+
     async githubData(username) {
         try {
             const response = await fetch(`https://api.github.com/users/${username}`);
@@ -214,7 +310,7 @@ class PortfolioManager {
         }
     }
 
-    async handlePlatformIntegration(platform, promptText, hasAPI = false) {
+    async handlePlatformIntegration(platform, promptText, hasAPI = true) {
         const username = prompt(promptText);
         if (!username) return;
         
@@ -236,60 +332,45 @@ class PortfolioManager {
         )};
         updateMethod.call(this, loadingStats);
         
-        if (hasAPI) {
-            const apiMethod = this[`${platform}Data`];
-            const apiData = await apiMethod.call(this, username);
-            
-            if (apiData && !apiData.error) {
-                localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
-                updateMethod.call(this, apiData);
-                if (typeof showToast === 'function') {
-                    showToast(`${platformName} profile connected successfully!`, 'success');
-                }
-            } else {
-                if (typeof showToast === 'function') {
-                    showToast(apiData?.error || `Failed to connect ${platformName} profile.`, 'danger');
-                }
-                updateMethod.call(this, getDefaultMethod.call(this));
+        const apiMethod = this[`${platform}Data`];
+        const apiData = await apiMethod.call(this, username);
+        
+        if (apiData && !apiData.error) {
+            localStorage.setItem(`${platform}_profile`, JSON.stringify(apiData));
+            updateMethod.call(this, apiData);
+            if (typeof showToast === 'function') {
+                showToast(`${platformName} profile connected successfully!`, 'success');
             }
         } else {
-            const config = this.platformConfigs[platform];
-            const placeholderData = { username, ...Object.fromEntries(
-                config.elements
-                    .filter(el => el !== 'connectBtn' && el !== 'username')
-                    .map(el => [el, 'N/A'])
-            )};
-            
-            localStorage.setItem(`${platform}_profile`, JSON.stringify(placeholderData));
-            updateMethod.call(this, placeholderData);
             if (typeof showToast === 'function') {
-                showToast(`${platformName} profile connected! (API integration pending)`, 'success');
+                showToast(apiData?.error || `Failed to connect ${platformName} profile.`, 'danger');
             }
+            updateMethod.call(this, getDefaultMethod.call(this));
         }
     }
 
     async handleLeetCodeIntegration() {
-        await this.handlePlatformIntegration('leetcode', 'Enter your LeetCode username:', true);
+        await this.handlePlatformIntegration('leetcode', 'Enter your LeetCode username:');
     }
 
     async handleGfgIntegration() {
-        await this.handlePlatformIntegration('gfg', 'Enter your GeeksforGeeks username:', false);
+        await this.handlePlatformIntegration('gfg', 'Enter your GeeksforGeeks username:');
     }
 
     async handleCodeChefIntegration() {
-        await this.handlePlatformIntegration('codechef', 'Enter your CodeChef username:', false);
+        await this.handlePlatformIntegration('codechef', 'Enter your CodeChef username:');
     }
 
     async handleHackerRankIntegration() {
-        await this.handlePlatformIntegration('hackerrank', 'Enter your HackerRank username:', false);
+        await this.handlePlatformIntegration('hackerrank', 'Enter your HackerRank username:');
     }
 
     async handleCodeforcesIntegration() {
-        await this.handlePlatformIntegration('codeforces', 'Enter your Codeforces username:', false);
+        await this.handlePlatformIntegration('codeforces', 'Enter your Codeforces username:');
     }
 
     async handleGitHubIntegration() {
-        await this.handlePlatformIntegration('github', 'Enter your GitHub username:', true);
+        await this.handlePlatformIntegration('github', 'Enter your GitHub username:');
     }
 
     async refreshPlatformData(platform, hasAPI = false) {
@@ -309,13 +390,6 @@ class PortfolioManager {
             updateMethod.call(this, getDefaultMethod.call(this));
             if (typeof showToast === 'function') {
                 showToast(`No ${platformName} profile connected. Please connect first.`, 'warning');
-            }
-            return;
-        }
-        
-        if (!hasAPI) {
-            if (typeof showToast === 'function') {
-                showToast(`${platformName} API integration coming soon!`, 'info');
             }
             return;
         }
@@ -357,11 +431,72 @@ class PortfolioManager {
     }
 
     async refreshLeetCodeData() { await this.refreshPlatformData('leetcode', true); }
-    async refreshGfgData() { await this.refreshPlatformData('gfg', false); }
-    async refreshCodeChefData() { await this.refreshPlatformData('codechef', false); }
-    async refreshHackerRankData() { await this.refreshPlatformData('hackerrank', false); }
-    async refreshCodeforcesData() { await this.refreshPlatformData('codeforces', false); }
+    async refreshGfgData() { await this.refreshPlatformData('gfg', true); }
+    async refreshCodeChefData() { await this.refreshPlatformData('codechef', true); }
+    async refreshHackerRankData() { await this.refreshPlatformData('hackerrank', true); }
+    async refreshCodeforcesData() { await this.refreshPlatformData('codeforces', true); }
     async refreshGitHubData() { await this.refreshPlatformData('github', true); }
+
+    displayResume() {
+        const resumeData = JSON.parse(localStorage.getItem('skillswap_resume'));
+        const resume = document.getElementById('resumeContent');
+
+        if (!resumeData) {
+            resume.innerHTML = `
+                <i class="bi bi-inbox display-4 text-muted mb-3"></i>
+                <p class="text-muted">No saved resume yet. Add one now!</p>
+                <label class="btn btn-primary mb-0">
+                    <i class="bi bi-upload me-2"></i>Add Resume
+                    <input type="file" id="resumeUploadInput" accept=".pdf,.doc,.docx" style="display:none" onchange="portfolioManager.handleResumeUpload(event)">
+                </label>`;
+            return;
+        }
+        resume.innerHTML = `
+            <iframe src="${resumeData.content}" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+            <div class="mt-3 d-flex justify-content-between align-items-center">
+                <span class="text-muted small">File: ${resumeData.fileName}</span>
+                <div>
+                    <label class="btn btn-sm btn-outline-primary me-2 mb-0">
+                        <i class="bi bi-upload me-1"></i>Replace Resume
+                        <input type="file" id="resumeUploadInput" accept=".pdf,.doc,.docx" style="display:none" onchange="portfolioManager.handleResumeUpload(event)">
+                    </label>
+                    <button class="btn btn-sm btn-outline-danger" onclick="portfolioManager.deleteResume()">
+                        <i class="bi bi-trash me-1"></i>Delete
+                    </button>
+                </div>
+            </div>`;
+    }
+
+    handleResumeUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const validTypes = ['application/pdf'];
+        if (!validTypes.includes(file.type)) {
+            alert('Please upload a PDF or Word document (.pdf, .doc, .docx)');
+            return;
+        }
+        const maxSize = 5 * 1024 * 1024; 
+        if (file.size > maxSize) {
+            showToast('File size must be less than 5MB. Please choose a smaller file.', 'danger');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            localStorage.setItem('skillswap_resume', JSON.stringify({ fileName: file.name, content: e.target.result }));
+            portfolioManager.displayResume();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    deleteResume() {
+        if (confirm('Are you sure you want to delete your resume? This action cannot be undone.')) {
+            localStorage.removeItem('skillswap_resume');
+            this.displayResume();
+            if (typeof showToast === 'function') {
+                showToast('Resume deleted successfully.', 'info');
+            }
+        }
+    }
 
     loadPortfolioData() {
         const portfolioData = JSON.parse(localStorage.getItem('skillswap_portfolio') || '{"jobs": [], "internships": []}');
