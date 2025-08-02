@@ -20,7 +20,7 @@ class PortfolioManager {
                 buttonColor: 'info'
             },
             codeforces: { 
-                elements: ['username', 'rating', 'max', 'contests', 'problems', 'rank', 'connectBtn'], 
+                elements: ['username', 'rating', 'max', 'rank', 'friends', 'lastActive', 'connectBtn'], 
                 buttonColor: 'info'
             },
             github: { 
@@ -177,17 +177,38 @@ class PortfolioManager {
 
     async leetcodeData(username) {
         try {
-            const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+            
+            const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`, {
+                signal: controller.signal,
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                }
+            });
+            clearTimeout(timeoutId);
+            
             if (!response.ok) throw new Error(`API failed with status: ${response.status}`);
             const data = await response.json();
-            if (data.status === 'error' || !data.totalSolved) return { error: "User not found. Please check the username." };
+            
+            if (data.status === 'error' || !data.totalSolved) {
+                return { error: "User not found. Please check the username." };
+            }
+            
             return {
                 username: username,
                 ranking: data.ranking || 'N/A',
-                problems: { easy: data.easySolved || 0, medium: data.mediumSolved || 0, hard: data.hardSolved || 0 },
+                problems: { 
+                    easy: data.easySolved || 0, 
+                    medium: data.mediumSolved || 0, 
+                    hard: data.hardSolved || 0 
+                },
                 totalSolved: data.totalSolved || 0
             };
         } catch (error) {
+            if (error.name === 'AbortError') {
+                return { error: 'Request timeout. Please try again.' };
+            }
             return { error: 'Failed to fetch LeetCode data. Please try again.' };
         }
     }
@@ -222,29 +243,46 @@ class PortfolioManager {
 
     async codechefData(username) {
         try {
-            const response = await fetch(`https://competitive-coding-api.herokuapp.com/api/codechef/${username}`);
+            const proxyUrl = "https://api.allorigins.win/get?url=";
+            const codechefUrl = `https://www.codechef.com/users/${username}`;
+            
+            const response = await fetch(proxyUrl + encodeURIComponent(codechefUrl));
             const data = await response.json();
             
-            if (data.status === "Success") {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.contents, "text/html");
+            
+            const rating = doc.querySelector('.rating-number')?.textContent?.trim() || "N/A";
+            const stars = doc.querySelector('.rating-star')?.textContent?.trim() || "N/A";
+            const globalRank = doc.querySelector('.rating-ranks strong')?.textContent?.trim() || "N/A";
+            const problemsSolved = doc.querySelector('.problems-solved h3')?.textContent?.trim()?.split(' ')[3] || "N/A";
+            
+            const contestSections = doc.querySelectorAll('.problems-solved .content');
+            const contestCount = contestSections.length || "N/A";
+            
+            if (rating !== "N/A" || problemsSolved !== "N/A") {
                 return {
-                    username: data.user_details.username,
-                    rating: data.rating || "N/A",
-                    rank: data.global_rank || "N/A",
-                    stars: data.stars || "N/A",
-                    contests: data.fully_solved.count || "N/A",
-                    problems: data.fully_solved.count || "N/A"
+                    username: username,
+                    rating: rating,
+                    rank: globalRank,
+                    stars: stars,
+                    contests: contestCount,
+                    problems: problemsSolved
                 };
             } else {
-                throw new Error(data.message || "Failed to fetch data");
+                throw new Error("Profile not found");
             }
-        } catch (error) {
-            console.error("CodeChef API Error:", error);
-            return { error: 'Failed to fetch CodeChef data. Please try again.' };
+        } catch (fallbackError) {
+            if (error.name === 'AbortError') {
+                return { error: 'CodeChef API timeout. Please try again.' };
+            }
+            return { error: 'Failed to fetch CodeChef data. Please check the username and try again.' };
         }
     }
 
     async hackerrankData(username) {
         try {
+            // First try the existing API
             const response = await fetch(`https://competitive-coding-api.herokuapp.com/api/hackerrank/${username}`);
             const data = await response.json();
             
@@ -261,7 +299,41 @@ class PortfolioManager {
                 throw new Error(data.message || "Failed to fetch data");
             }
         } catch (error) {
-            return { error: 'Failed to fetch HackerRank data. Please try again.' };
+            console.error("HackerRank API Error:", error);
+            // Fallback: Try web scraping approach for HackerRank
+            try {
+                const proxyUrl = "https://api.allorigins.win/get?url=";
+                const hackerrankUrl = `https://www.hackerrank.com/profile/${username}`;
+                
+                const response = await fetch(proxyUrl + encodeURIComponent(hackerrankUrl));
+                const data = await response.json();
+                
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data.contents, "text/html");
+                
+                // Try to extract basic information from HackerRank profile
+                const profileData = doc.querySelector('.profile-content');
+                
+                if (profileData) {
+                    // Extract available data from the profile page
+                    const badges = doc.querySelectorAll('.badge').length || "N/A";
+                    const certificates = doc.querySelectorAll('.certificate').length || "N/A";
+                    
+                    return {
+                        username: username,
+                        badges: badges,
+                        rank: "N/A",
+                        certificates: certificates,
+                        problems: "N/A",
+                        skills: "N/A"
+                    };
+                } else {
+                    throw new Error("Profile not found");
+                }
+            } catch (fallbackError) {
+                console.error("HackerRank Fallback Error:", fallbackError);
+                return { error: 'Failed to fetch HackerRank data. Please check the username and try again.' };
+            }
         }
     }
 
@@ -276,9 +348,9 @@ class PortfolioManager {
                     username: user.handle,
                     rating: user.rating || "N/A",
                     max: user.maxRating || "N/A",
-                    contests: user.contribution || "N/A",
-                    problems: "N/A",
-                    rank: user.rank || "N/A"
+                    rank: user.rank || "N/A",
+                    friends: user.friendOfCount || "N/A",
+                    lastActive: user.lastOnlineTimeSeconds ? Math.floor(user.lastOnlineTimeSeconds / 8640000) + ' days' : "N/A"
                 };
             } else {
                 throw new Error(data.comment || "Failed to fetch data");
@@ -290,11 +362,49 @@ class PortfolioManager {
 
     async githubData(username) {
         try {
-            const response = await fetch(`https://api.github.com/users/${username}`);
-            if (!response.ok) throw new Error(`GitHub API failed with status: ${response.status}`);
+            // Add timeout to prevent hanging requests
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+            
+            const response = await fetch(`https://api.github.com/users/${username}`, {
+                signal: controller.signal,
+                headers: {
+                    'User-Agent': 'SkillSwap-Portfolio-App'
+                }
+            });
+            
+            if (!response.ok) {
+                if (response.status === 404) {
+                    return { error: 'GitHub user not found. Please check the username.' };
+                } else if (response.status === 403) {
+                    return { error: 'GitHub API rate limit exceeded. Please try again later.' };
+                }
+                throw new Error(`GitHub API failed with status: ${response.status}`);
+            }
+            
             const userData = await response.json();
-            const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
-            if (!reposResponse.ok) throw new Error(`GitHub API failed with status: ${reposResponse.status}`);
+            
+            const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
+                signal: controller.signal,
+                headers: {
+                    'User-Agent': 'SkillSwap-Portfolio-App'
+                }
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (!reposResponse.ok) {
+                console.warn('Failed to fetch repos, using basic user data only');
+                return {
+                    username: username,
+                    repos: userData.public_repos || 0,
+                    stars: 0,
+                    watchers: 0,
+                    followers: userData.followers || 0,
+                    following: userData.following || 0
+                };
+            }
+            
             const repos = await reposResponse.json();
             
             return {
@@ -306,6 +416,10 @@ class PortfolioManager {
                 following: userData.following || 0
             };
         } catch (error) {
+            if (error.name === 'AbortError') {
+                return { error: 'Request timeout. Please try again.' };
+            }
+            console.error("GitHub API Error:", error);
             return { error: 'Failed to fetch GitHub data. Please check the username.' };
         }
     }
